@@ -1,0 +1,172 @@
+port = 56789                                        #工具使用的通信端口
+douban_ck = ""                                      #非必填，当无法查询出豆瓣编号时，可以尝试增加自己的豆瓣CK查询
+ptgen = "https://ptgen.ptvicomo.net/"               #PTGEN地址，建议自建，目前有【https://ptgen.agsvpt.work/，https://ptgen.ptvicomo.net/，https://api.iyuu.cn/App.Movie.Ptgen/】可选，也可以自己添加，有问题反馈
+ptgenck = "https://ptgen.ptvicomo.net/"             #PTGEN地址，建议填带有豆瓣cookie的地址。如没有，请两个填一样的
+cache_use = true                                    #是否使用PTGEN本地缓存
+is_debug = false                                    #debug日志开关，修改后需要重启容器【默认关闭】
+time_to_rss = 10                                    #每N分钟执行一次自动RSS种子【单位是分钟：10-44】,不建议过快，防止站点限制
+time_to_rss_list = 10                               #数组类RSS链接间等待N分钟，最小时间5分钟。
+http_porxy = "http://ip:port"                       #代理，用于访问无法连接的RSS
+queue_num = 20                                      #种子缓存队列长度
+send_num = 2                                        #单次请求返回种子信息的条数
+num_per_turn = 2                                    #每轮RSS从单个站最多读取N条可用记录存入队列
+
+[cc_server]                                         #CookieCloud配置，同浏览器插件配置
+url = ""                                            #服务器地址
+key = ""                                            #用户KEY/UUID
+password = ""                                       #端对端加密密码
+
+[rss]                                               #本模块修改不用重启
+free_check = true                                   #RSS时是否检测种子免费状态，默认true进行检测。
+time_check = 5                                      #RSS时检测种子发布时间，N天前的不下载，默认5天。
+hr_check = true                                     #RSS时是否检测种子的HR标志，有标志的不进行下载，默认true进行检测。
+quick_scan = false                                  #RSS时快速轮循所有种子，建议执行完一次就改回false。
+
+[rss.domain]                                        #源站域名映射
+"audiences.me" = "audiences.me"
+"springsunday.net" = "springsunday.net"
+"hhanclub.top" = "hhanclub.top"
+"ubits.club" = "ubits.club"
+"hdhome.org" = "hdhome.org"
+"www.hddolby.com" = "www.hddolby.com"
+"pterclub.net" = "pterclub.net"
+"pt.keepfrds.com" = "pt.keepfrds.com"
+"zmpt.cc" = "zmpt.cc"
+"reelflix.xyz" = "reelflix.xyz"
+"filelist.io" = "filelist.io"
+"ourbits.club" = "ourbits.club"
+"sunnypt.top" = "sunnypt.top"
+"ptlgs.org" = "ptlgs.org"
+"pt.xingyungept.org" = "pt.xingyungept.org"
+"cspt.top" = "cspt.top"
+"www.hdkyl.in" = "www.hdkyl.in"
+"hdsky.me" = "hdsky.me"
+"kp.m-team.cc" = "kp.m-team.cc"
+
+[rss.cookies]                                       #源站和目标站的cookies信息，可在浏览器命令行输入document.cookie打印后直接复制放入。
+"audiences.me" = ""
+"springsunday.net" = ""
+"hhanclub.top" = ""
+"ubits.club" = ""
+"hdhome.org" = ""
+"www.hddolby.com" = ""
+"pterclub.net" = ""
+"pt.keepfrds.com" = ""
+"zmpt.cc" = ""
+"reelflix.xyz" = ""
+"filelist.io" = ""
+"ourbits.club" = ""
+"sunnypt.top" = ""
+"ptlgs.org" = ""
+"pt.xingyungept.org" = ""
+"cspt.top" = ""
+"www.hdkyl.in" = ""
+"hdsky.me" = ""
+"kp.m-team.cc" = ""                                 #需要填写x-api-key=xxx
+
+
+[rss.seed_size_less_GB]                             #只R体积小于此值的种子，两者控制范围，默认为40GB，2者大小填错会自动适应，上下限都填0则无限制#本模块修改不用重启
+"audiences.me" = 40
+"springsunday.net" = 40
+"hhanclub.top" = 40
+"hdhome.org" = 40
+"www.hddolby.com" = 40
+"pt.keepfrds.com" = 40
+"pterclub.net" = 40
+"zmpt.cc" = 40
+"ubits.club" = 40
+"reelflix.xyz" = 40
+"filelist.io" = 40
+"ourbits.club" = 40
+"sunnypt.top" = 40
+"ptlgs.org" = 40
+"pt.xingyungept.org" = 40
+"cspt.top" = 40
+"www.hdkyl.in" = 40
+"hdsky.me" = 40
+"kp.m-team.cc" = 40
+
+[rss.seed_size_more_GB]                             #只R体积大于此值的种子，两者控制范围，默认为20GB，2者大小填错会自动适应，上下限都填0则无限制#本模块修改不用重启
+"audiences.me" = 0
+"springsunday.net" = 0
+"hhanclub.top" = 0
+"hdhome.org" = 0
+"www.hddolby.com" = 0
+"pt.keepfrds.com" = 0
+"pterclub.net" = 0
+"zmpt.cc" = 0
+"ubits.club" = 0
+"reelflix.xyz" = 0
+"filelist.io" = 0
+"ourbits.club" = 0
+"sunnypt.top" = 0
+"ptlgs.org" = 0
+"pt.xingyungept.org" = 0
+"cspt.top" = 0
+"www.hdkyl.in" = 0
+"hdsky.me" = 0
+"kp.m-team.cc" = 0
+
+[rss.is_used]                                       #站点RSS开关，启用修改为true，关闭修改为false#本模块修改不用重启
+"audiences.me" = false
+"springsunday.net" = false
+"hhanclub.top" = false
+"hdhome.org" = false
+"www.hddolby.com" = false
+"pt.keepfrds.com" = false
+"pterclub.net" = false
+"zmpt.cc" = false
+"ubits.club" = false
+"reelflix.xyz" = false
+"filelist.io" = false
+"ourbits.club" = false
+"sunnypt.top" = false
+"ptlgs.org" = false
+"pt.xingyungept.org" = false
+"cspt.top" = false
+"www.hdkyl.in" = false
+"hdsky.me" = false
+"kp.m-team.cc" = false
+
+[rss.url]                                           #站点RSS的链接，请从网站RSS生成链接里找passkey后，自行补充在最后的等于号后，注意前面的别动。如果想要自己生成RSS链接则必须选中【[标题格式]中的[类型]和[大小]】#本模块修改不用重启
+"audiences.me" = "https://audiences.me/torrentrss.php?rows=50&tags=gf&icat=1&isize=1&torrent_type=1&linktype=dl&rsskey="
+"springsunday.net" = "https://springsunday.net/torrentrss.php?rows=50&tea1=1&icat=1&isize=1&linktype=dl&passkey="
+"hhanclub.top" = "https://hhanclub.top/torrentrss.php?rows=50&tag3=1&icat=1&isize=1&linktype=dl&passkey="
+"hdhome.org" = "https://hdhome.org/torrentrss.php?rows=50&exp=180&tea1=1&tea2=1&tea3=1&icat=1&isize=1&linktype=dl&passkey="
+"www.hddolby.com" = "https://www.hddolby.com/torrentrss.php?rows=50&exp=180&tea1=1&tea12=1&icat=1&isize=1&linktype=dl&passkey="
+"pt.keepfrds.com" = "https://pt.keepfrds.com/torrentrss.php?rows=50&tea6=1&tea3=1&tea10=1&tea14=1&tea12=1&tea8=1&tea9=1&icat=1&ismalldescr=1&isize=1&linktype=dl&passkey="
+"pterclub.net" = "https://pterclub.net/torrentrss.php?rows=50&tag_exclusive=no&tag_internal=yes&icat=1&isize=1&linktype=dl&passkey="
+"zmpt.cc" = "https://zmpt.cc/torrentrss.php?rows=50&cat422=1&cat417=1&cat427=1&cat401=1&cat402=1&cat403=1&tea7=1&icat=1&isize=1&paid=0&linktype=dl&passkey="
+"ubits.club" = "https://ubits.club/torrentrss.php?rows=50&icat=1&isize=1&linktype=dl&passkey="
+"reelflix.xyz" = "https://reelflix.xyz/rss/"
+"filelist.io" = "https://filelist.io/rss.php?feed=dl&cat=24,11,15,18,16,25,6,26,20,2,3,4,19,1,27,21,23,13&passkey="
+"ourbits.club" = "https://ourbits.club/torrentrss.php?inclbookmarked=0&https=1&icat=1&isize=1&rows=10&search_mode=0&linktype=dl&passkey="
+"sunnypt.top" = "https://sunnypt.top/torrentrss.php?rows=50&icat=1&isize=1&linktype=dl&passkey="
+"ptlgs.org" = "https://ptlgs.org/torrentrss.php?rows=50&tea14=1&tea15=1&tea17=1&icat=1&isize=1&paid=0&linktype=dl&passkey="
+"pt.xingyungept.org" = "https://pt.xingyungept.org/torrentrss.php?rows=50&icat=1&isize=1&tea8=1&linktype=dl&passkey="
+"cspt.top" = "https://cspt.top/torrentrss.php?rows=50&tea18=1&tea19=1&icat=1&isize=1&linktype=dl&passkey="
+"www.hdkyl.in" = "https://www.hdkyl.in/torrentrss.php?rows=50&tea12=1&tea7=1&tea6=1&icat=1&isize=1&linktype=dl&passkey="
+"hdsky.me" = "https://hdsky.me/torrentrss.php?rows=50&icat=1&ismalldescr=1&isize=1&linktype=dl&passkey="
+"kp.m-team.cc" = "https://rss.m-team.cc/api/rss/fetch?dl=1&pageSize=50&tkeys=ttitle%2Ctcat%2Ctsmalldescr&uid=&sign=&t="
+"model_site" = ["rss_url1", "rss_url2"]
+
+[qiyeweixin]                                        #配置企业微信推送信息相关内容
+is_used = false                                     #是否启用企业微信通知功能。默认关闭
+corpsecret = ""                                     #打开https://work.weixin.qq.com/wework_admin/frame页面，从应用管理标签中的自定义应用详情页面中Secret内容
+agentid = ""                                        #打开https://work.weixin.qq.com/wework_admin/frame页面，从应用管理标签中的自定义应用详情页面中AgentId内容
+corpid = ""                                         #打开https://work.weixin.qq.com/wework_admin/frame页面，从我的企业标签中的企业ID
+userid = ""                                         #打开https://work.weixin.qq.com/wework_admin/frame页面，从通讯录标签中成员详情中的账号
+mobile = ""                                         #打开https://work.weixin.qq.com/wework_admin/frame页面，从通讯录标签中成员详情中的手机
+ACCESS_TOKEN = ""                                   #留空，代码会自动生成
+
+[email]                                             #配置邮件推送信息相关内容
+is_used = false                                     #是否启用邮件通知功能。默认关闭
+SMTP_SERVER = ""                                    #SMTP发送邮件服务器，形如 smtp.exmail.qq.com:465
+SMTP_SSL = false                                    #SMTP发送邮件服务器是否使用 SSL，填写 true 或 false
+SMTP_EMAIL = ""                                     #SMTP收发件邮箱，通知将会由自己发给自己
+SMTP_PASSWORD = ""                                  #SMTP登录密码，也可能为特殊口令，视具体邮件服务商说明而定
+SMTP_NAME = ""                                      #SMTP收发件人姓名，可随意填写
+
+[iyuu]                                              #配置IYUU推送信息相关内容
+is_used = false                                     #是否启用IYUU通知功能。默认关闭
+iyuu_token = ""                                     #IYUU的token

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>拉种工具接口调用</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .api-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            min-height: 1.5em;
+            max-height: calc(1.5em * 10);
+            overflow-y: auto;
+            line-height: 1.5;
+            font-family: monospace;
+        }
+
+        .error {
+            background-color: #e74c3c !important;
+            color: white;
+        }
+
+        .success {
+            background-color: #2ecc71 !important;
+            color: white;
+        }
+
+        .interface-container {
+            border: 1px solid #eee;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .interface-title {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .interface-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .interface-row .interface-container {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .interface-row {
+                flex-direction: column;
+            }
+
+            .interface-row .interface-container {
+                min-width: 100%;
+            }
+        }
+
+        .back-button {
+            background-color: #95a5a6;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #7f8c8d;
+        }
+
+        .form-group-horizontal {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .form-item {
+            flex: 1;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding-bottom: 8px;
+        }
+
+        .checkbox-item label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>自动拉种工具接口调用</h1>
+
+    <div class="api-section">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 class="section-title">接口列表</h2>
+            <a href="/" class="back-button">返回首页</a>
+        </div>
+        <div class="interface-row">
+            <!-- forceRss -->
+            <div class="interface-container">
+                <div class="interface-title">强制拉取RSS (forceRss)</div>
+                <button onclick="callApi('forceRss')">调用接口</button>
+                <div class="result" id="forceRss_result"></div>
+            </div>
+            <!-- checkDetail -->
+            <div class="interface-container">
+                <div class="interface-title">验证页面详情 (checkDetail)</div>
+                <div class="form-group">
+                    <label for="checkDetail_url">源站种子详情页url:</label>
+                    <input type="text" id="checkDetail_url" placeholder="请输入源站种子详情页url">
+                </div>
+                <button onclick="callApi('checkDetail')">调用接口</button>
+                <div class="result" id="checkDetail_result"></div>
+            </div>
+        </div>
+        <div class="interface-row">
+            <!-- delByHash -->
+            <div class="interface-container">
+                <div class="interface-title">手工删除报错种子 (delByHash)</div>
+                <div class="form-group">
+                    <label for="delByHash_h">QB种子信息中的信息哈希值:</label>
+                    <input type="text" id="delByHash_h" placeholder="请输入信息哈希值">
+                </div>
+                <button onclick="callApi('delByHash')">调用接口</button>
+                <div class="result" id="delByHash_result"></div>
+            </div>
+            <!-- delByUrl -->
+            <div class="interface-container">
+                <div class="interface-title">手工删除报错种子 (delByUrl)</div>
+                <div class="form-group">
+                    <label for="delByUrl_u">源站种子详情页:</label>
+                    <input type="text" id="delByUrl_u" placeholder="请输入源站种子详情页">
+                </div>
+                <button onclick="callApi('delByUrl')">调用接口</button>
+                <div class="result" id="delByUrl_result"></div>
+            </div>
+        </div>
+        <div class="interface-row">
+            <!-- getHashInfo -->
+            <div class="interface-container">
+                <div class="interface-title">获取源种存储信息 (getHashInfo)</div>
+                <div class="form-group">
+                    <label for="adminPassword">拉种工具密码:</label>
+                    <input type="password" id="adminPassword" placeholder="请输入密码">
+                    <label for="getHashInfo_h">QB种子信息中的信息哈希值:</label>
+                    <input type="text" id="getHashInfo_h" placeholder="请输入信息哈希值">
+                </div>
+                <button onclick="callApi('getHashInfo')">调用接口</button>
+                <div class="result" id="getHashInfo_result"></div>
+            </div>
+            <!-- updateHash -->
+            <div class="interface-container">
+                <div class="interface-title">种子发布状态更新 (updateHash)</div>
+                <div class="form-group">
+                    <label for="updateHash_h">QB种子信息中的信息哈希值:</label>
+                    <input type="text" id="updateHash_h" placeholder="请输入信息哈希值">
+                </div>
+                <div class="form-group">
+                    <label for="updateHash_s">发布状态 (0：未发布，1：已发布):</label>
+                    <input type="text" id="updateHash_s" placeholder="请输入状态值(0或1)">
+                </div>
+                <button onclick="callApi('updateHash')">调用接口</button>
+                <div class="result" id="updateHash_result"></div>
+            </div>
+        </div>
+        <div class="interface-row">
+            <!-- getNearlyInfo -->
+            <div class="interface-container">
+                <div class="interface-title">查询待发布资源名称和PTGEN对应 (getNearlyInfo)</div>
+                <div class="form-group">
+                    <label for="getNearlyInfo_t">查询的时间范围(小时):</label>
+                    <input type="text" id="getNearlyInfo_t" placeholder="请输入时间范围(小时)">
+                </div>
+                <button onclick="callApi('getNearlyInfo')">调用接口</button>
+                <div class="result" id="getNearlyInfo_result"></div>
+            </div>
+            <!-- forceUpdateIntro -->
+            <div class="interface-container">
+                <div class="interface-title">强制刷新种子详情存储信息 (forceUpdateIntro)</div>
+                <div class="form-group">
+                    <label for="forceUpdateIntro_h">QB种子信息中的信息哈希值:</label>
+                    <input type="text" id="forceUpdateIntro_h" placeholder="请输入信息哈希值">
+                </div>
+                <button onclick="callApi('forceUpdateIntro')">调用接口</button>
+                <div class="result" id="forceUpdateIntro_result"></div>
+            </div>
+        </div>
+        <div class="interface-row">
+            <!-- addByUrl -->
+            <div class="interface-container">
+                <div class="interface-title">手工新增源站种子 (addByUrl)</div>
+                <div class="form-group">
+                    <label for="addByUrl_h">QB种子信息中的信息哈希值:</label>
+                    <input type="text" id="addByUrl_h" placeholder="请输入信息哈希值">
+                </div>
+                <div class="form-group">
+                    <label for="addByUrl_url">源站种子详情页:</label>
+                    <input type="text" id="addByUrl_url" placeholder="请输入源站种子详情页">
+                </div>
+                <div class="form-group-horizontal">
+                    <div class="form-item">
+                        <label for="addByUrl_hr">本种是否有HR (1有，0无):</label>
+                        <input type="text" id="addByUrl_hr" placeholder="请输入HR状态(1或0)">
+                    </div>
+                    <div class="form-item">
+                        <label for="addByUrl_sf">站点架构 (np|u3d):</label>
+                        <input type="text" id="addByUrl_sf" placeholder="请输入站点架构(np或u3d)">
+                    </div>
+                    <div class="form-item checkbox-item">
+                        <label>
+                            <input type="checkbox" id="addByUrl_force">
+                            是否队列置顶
+                        </label>
+                    </div>
+                </div>
+                <button onclick="callApi('addByUrl')">调用接口</button>
+                <div class="result" id="addByUrl_result"></div>
+            </div>
+        </div>
+        <div class="interface-row">
+            <!-- addDoubanM -->
+            <div class="interface-container">
+                <div class="interface-title">新增豆瓣信息 (addDoubanM)</div>
+                <div class="form-group">
+                    <label for="addDouban_douban">豆瓣URL:</label>
+                    <input type="text" id="addDouban_douban" placeholder="请输入豆瓣URL">
+                </div>
+                <div class="form-group">
+                    <label for="addDouban_imdb">IMDB URL:</label>
+                    <input type="text" id="addDouban_imdb" placeholder="请输入IMDB URL">
+                </div>
+                <div class="form-group">
+                    <label for="addDouban_descr">影视中文名:</label>
+                    <input type="text" id="addDouban_descr" placeholder="请输入影视中文名">
+                </div>
+                <button onclick="callApi('addDoubanM')">调用接口</button>
+                <div class="result" id="addDouban_result"></div>
+            </div>
+            <!-- modDouban -->
+            <div class="interface-container">
+                <div class="interface-title">修改豆瓣信息 (modDouban)</div>
+                <div class="form-group">
+                    <label for="modDouban_douban">豆瓣URL:</label>
+                    <input type="text" id="modDouban_douban" placeholder="请输入豆瓣URL">
+                </div>
+                <div class="form-group">
+                    <label for="modDouban_imdb">IMDB URL:</label>
+                    <input type="text" id="modDouban_imdb" placeholder="请输入IMDB URL">
+                </div>
+                <div class="form-group">
+                    <label for="modDouban_descr">影视中文名:</label>
+                    <input type="text" id="modDouban_descr" placeholder="请输入影视中文名">
+                </div>
+                <button onclick="callApi('modDouban')">调用接口</button>
+                <div class="result" id="modDouban_result"></div>
+            </div>
+        </div>
+        <div class="interface-row">
+            <!-- selDouban -->
+            <div class="interface-container">
+                <div class="interface-title">查询豆瓣信息 (selDouban)</div>
+                <div class="form-group">
+                    <label for="selDouban_d">豆瓣或IMDB URL:</label>
+                    <input type="text" id="selDouban_d" placeholder="请输入豆瓣或IMDB URL">
+                </div>
+                <button onclick="callApi('selDouban')">调用接口</button>
+                <div class="result" id="selDouban_result"></div>
+            </div>
+            <!-- delDouban -->
+            <div class="interface-container">
+                <div class="interface-title">删除豆瓣信息 (delDouban)</div>
+                <div class="form-group">
+                    <label for="delDouban_douban">豆瓣URL:</label>
+                    <input type="text" id="delDouban_douban" placeholder="请输入豆瓣URL">
+                </div>
+                <div class="form-group">
+                    <label for="delDouban_imdb">IMDB URL:</label>
+                    <input type="text" id="delDouban_imdb" placeholder="请输入IMDB URL">
+                </div>
+                <button onclick="callApi('delDouban')">调用接口</button>
+                <div class="result" id="delDouban_result"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 调用API函数
+    function callApi(method) {
+        // 使用Flask提供的基础地址
+        const baseUrl = "sv/rss/api";
+        let url = baseUrl + '/' + method;
+
+        let options = {
+            method: 'GET'
+        };
+
+        // 根据不同接口构建参数
+        switch (method) {
+            // RSS 接口
+            case 'addDoubanM':
+                const douban = document.getElementById('addDouban_douban').value;
+                const imdb = document.getElementById('addDouban_imdb').value;
+                const descr = document.getElementById('addDouban_descr').value;
+                const addDoubanData = {douban, imdb, descr};
+                options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(addDoubanData)
+                };
+                break;
+
+            case 'delDouban':
+                const delDouban_douban = document.getElementById('delDouban_douban').value;
+                const delDouban_imdb = document.getElementById('delDouban_imdb').value;
+                const delDoubanData = {douban: delDouban_douban, imdb: delDouban_imdb};
+                options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(delDoubanData)
+                };
+                break;
+
+            case 'selDouban':
+                const d = document.getElementById('selDouban_d').value;
+                url += `?d=${encodeURIComponent(d)}`;
+                break;
+
+            case 'modDouban':
+                const modDouban_douban = document.getElementById('modDouban_douban').value;
+                const modDouban_imdb = document.getElementById('modDouban_imdb').value;
+                const modDouban_descr = document.getElementById('modDouban_descr').value;
+                const modDoubanData = {douban: modDouban_douban, imdb: modDouban_imdb, descr: modDouban_descr};
+                options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(modDoubanData)
+                };
+                break;
+
+            case 'checkDetail':
+                const url_param = document.getElementById('checkDetail_url').value;
+                url += `?url=${encodeURIComponent(url_param)}`;
+                break;
+
+            case 'forceRss':
+                // 无参数
+                break;
+
+            case 'getHashInfo':
+                const password = document.getElementById('adminPassword').value;
+                if (!password) {
+                    alert('请输入密码后再保存配置');
+                    return;
+                }
+                const h_getHashInfo = document.getElementById('getHashInfo_h').value;
+                const getHashInfoData = {h: h_getHashInfo, pw: password};
+                options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(getHashInfoData)
+                };
+                break;
+
+            case 'updateHash':
+                const h_updateHash = document.getElementById('updateHash_h').value;
+                const s_updateHash = document.getElementById('updateHash_s').value;
+                url += `?h=${encodeURIComponent(h_updateHash)}&s=${encodeURIComponent(s_updateHash)}`;
+                break;
+
+            case 'getNearlyInfo':
+                const t_getNearlyInfo = document.getElementById('getNearlyInfo_t').value;
+                url += `?t=${encodeURIComponent(t_getNearlyInfo)}`;
+                break;
+
+            case 'forceUpdateIntro':
+                const h_forceUpdateIntro = document.getElementById('forceUpdateIntro_h').value;
+                url += `?h=${encodeURIComponent(h_forceUpdateIntro)}`;
+                break;
+
+            case 'addByUrl':
+                const h_addByUrl = document.getElementById('addByUrl_h').value;
+                const url_addByUrl = document.getElementById('addByUrl_url').value;
+                const hr_addByUrl = document.getElementById('addByUrl_hr').value;
+                const sf_addByUrl = document.getElementById('addByUrl_sf').value;
+                const force_addByUrl = document.getElementById('addByUrl_force').checked;
+                // 解析URL获取domain
+                let domain = '';
+                try {
+                    const urlObj = new URL(url_addByUrl);
+                    domain = urlObj.hostname;
+                } catch (e) {
+                    console.error('URL解析失败:', e);
+                }
+                let addByUrlParams = `?h=${encodeURIComponent(h_addByUrl)}&url=${encodeURIComponent(url_addByUrl)}&hr=${encodeURIComponent(hr_addByUrl)}&sf=${encodeURIComponent(sf_addByUrl)}&ss=${encodeURIComponent(domain)}`;
+                if (force_addByUrl) {
+                    addByUrlParams += `&force=1`;
+                }
+                url += addByUrlParams;
+                break;
+
+            case 'delByUrl':
+                const u_delByUrl = document.getElementById('delByUrl_u').value;
+                url += `?u=${encodeURIComponent(u_delByUrl)}`;
+                break;
+
+            case 'delByHash':
+                const h_delByHash = document.getElementById('delByHash_h').value;
+                url += `?h=${encodeURIComponent(h_delByHash)}`;
+                break;
+        }
+
+        // 发送请求
+        fetch(url, options)
+            .then(response => {
+                return response.json().then(data => {
+                    // 返回完整的响应对象和解析后的数据
+                    return {response: response, data: data};
+                });
+            })
+            .then(result => {
+                const {response, data} = result;
+                const resultId = `${method}_result`;
+
+                // 检查响应状态和返回码
+                if (!response.ok || data.code !== 200) {
+                    const errorMsg = data.msg || `HTTP error! status: ${response.status}`;
+                    document.getElementById(resultId).textContent = `错误: ${errorMsg}`;
+                    document.getElementById(resultId).className = 'result error';
+                } else {
+                    document.getElementById(resultId).textContent = data.msg || '操作成功';
+                    document.getElementById(resultId).className = 'result success';
+                }
+            })
+            .catch(error => {
+                const resultId = `${method}_result`;
+                document.getElementById(resultId).innerHTML = `错误: ${error.message}`;
+                document.getElementById(resultId).className = 'result error';
+            });
+    }
+</script>
+</body>
+</html>

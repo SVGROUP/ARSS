@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>拉种工具配置编辑器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .fixed-top-buttons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 5px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .fixed-top-buttons h1 {
+            color: #333;
+            margin: 0 0 5px 5px;
+            font-size: 24px;
+        }
+
+        .fixed-top-buttons .help-text {
+            margin-bottom: 5px;
+            color: #777;
+        }
+
+        .fixed-top-buttons .btn {
+            margin: 0 5px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #007cba;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .form-item {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 20px;
+            margin-bottom: 10px;
+        }
+
+        .form-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-item input, .form-item select, .form-item textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-item input[type="checkbox"] {
+            width: auto;
+        }
+
+        .form-item .help-text {
+            font-size: 12px;
+            color: #777;
+            margin-top: 3px;
+        }
+
+        .text {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 4px;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background-color: #007cba;
+            color: white;
+            padding: 6px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 0 10px;
+        }
+
+        .btn:hover {
+            background-color: #005a87;
+        }
+
+        .btn-red {
+            background-color: #dc3545;
+        }
+
+        .btn-red:hover {
+            background-color: #c82333;
+        }
+
+        .btn-green {
+            background-color: #28a745;
+        }
+
+        .btn-green:hover {
+            background-color: #218838;
+        }
+
+        .btn-yellow {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .btn-yellow:hover {
+            background-color: #e0a800;
+        }
+
+        .back-button {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .back-button:hover {
+            background-color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .form-item {
+                min-width: 100%;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="fixed-top-buttons">
+        <h1>拉种工具配置编辑器</h1>
+        <div class="help-text">建议修改前先备份当前配置</div>
+        <input type="password" id="adminPassword" placeholder="请输入密码后点击加载"
+               style="padding: 5px; margin: 0 10px; border-radius: 4px; border: 1px solid #ccc; width: 150px;">
+        <button type="button" class="btn btn-yellow" id="loadBtn" onclick="loadConfig()">页面加载配置</button>
+        <button type="button" class="btn" id="saveBtn" onclick="saveConfig()">页面保存配置</button>
+        <button type="button" class="btn btn-red" id="backupBtn" onclick="backupConfig()">后端备份配置</button>
+        <button type="button" class="btn btn-green" id="restoreBtn" onclick="restoreConfig()">后端恢复配置</button>
+        <button type="button" class="btn back-button" onclick="window.location.href='/'">返回首页</button>
+    </div>
+    <form id="configForm" style="display: none;">
+        <!-- 基本配置 -->
+        <div class="section">
+            <div class="section-title">基本配置</div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="port">通信端口</label>
+                    <input type="number" id="port" name="port" value="56789">
+                    <div class="help-text">工具使用的通信端口</div>
+                </div>
+                <div class="form-item">
+                    <label for="is_debug">
+                        <input type="checkbox" id="is_debug" name="is_debug"> Debug模式
+                    </label>
+                    <div class="help-text">debug日志开关，修改后需要重启容器</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="time_to_rss">RSS间隔（分钟）</label>
+                    <input type="number" id="time_to_rss" name="time_to_rss" value="10" min="10" max="44">
+                    <div class="help-text">每N分钟执行一次自动RSS种子【单位是分钟：10-44】</div>
+                </div>
+                <div class="form-item">
+                    <label for="time_to_rss_list">列表等待时间（分钟）</label>
+                    <input type="number" id="time_to_rss_list" name="time_to_rss_list" value="10" min="5">
+                    <div class="help-text">数组类RSS链接间等待N分钟，最小时间5分钟</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="queue_num">种子缓存队列长度</label>
+                    <input type="number" id="queue_num" name="queue_num" value="20">
+                    <div class="help-text">种子缓存队列长度</div>
+                </div>
+                <div class="form-item">
+                    <label for="send_num">单次请求返回种子数</label>
+                    <input type="number" id="send_num" name="send_num" value="2">
+                    <div class="help-text">单次请求返回种子信息的条数</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="num_per_turn">每轮RSS最大记录数</label>
+                    <input type="number" id="num_per_turn" name="num_per_turn" value="2">
+                    <div class="help-text">每轮RSS从单个站最多读取N条可用记录存入队列</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="douban_ck">豆瓣Cookie</label>
+                    <input type="text" id="douban_ck" name="douban_ck" value="">
+                    <div class="help-text">当无法查询出豆瓣编号时，可以尝试增加自己的豆瓣CK查询</div>
+                </div>
+                <div class="form-item">
+                    <label for="time_check">发布时间限制</label>
+                    <input type="text" id="time_check" name="time_check" value="">
+                    <div class="help-text">拉种时检测种子发布时间，N天前的不入队列下载</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="ptgen">PTGEN地址</label>
+                    <input type="text" id="ptgen" name="ptgen" value="https://ptgen.ptvicomo.net/">
+                    <div class="help-text">PTGEN地址，可配置多个，用#进行分割。
+                        一些PTGEN格式：https://ptgen.ptvicomo.net/，https://doubaninfo.com/api/v1_douban.php?key={你的key}&url=，https://cspt.top/api/ptgen/query/{你的key}等
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label for="cache_use">
+                        <input type="checkbox" id="cache_use" name="cache_use"> 使用本地PTGEN缓存
+                    </label>
+                    <div class="help-text">是否启用缓存PTGEN数据在本地的功能</div>
+                </div>
+            </div>
+            <!-- RSS子配置 -->
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="free_check">
+                        <input type="checkbox" id="free_check" name="free_check" checked> 检测免费状态
+                    </label>
+                    <div class="help-text">拉种时是否检测种子免费，不免费的不进行下载</div>
+                </div>
+                <div class="form-item">
+                    <label for="hr_check">
+                        <input type="checkbox" id="hr_check" name="hr_check" checked> 检测HR标志
+                    </label>
+                    <div class="help-text">拉种时是否检测种子的HR标志，有标志的不进行下载</div>
+                </div>
+                <div class="form-item">
+                    <label for="quick_scan">
+                        <input type="checkbox" id="quick_scan" name="quick_scan"> 快速轮循
+                    </label>
+                    <div class="help-text">拉种时快速轮循所有种子，建议只执行一次</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CookieCloud配置 -->
+        <div class="section">
+            <div class="section-title">CookieCloud配置</div>
+            <div class="text">每次系统启动后会在随机整点开始CC自动同步，并间隔24小时重复执行无需人工干预。也可人工点击同步按钮触发自动保存</div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="cc_url">服务器地址</label>
+                    <input type="text" id="cc_url" name="cc_server.url" value="">
+                    <div class="help-text">CC插件填写的服务器地址</div>
+                </div>
+                <div class="form-item">
+                    <label for="cc_key">用户Key</label>
+                    <input type="text" id="cc_key" name="cc_server.key" value="">
+                    <div class="help-text">CC插件生成的用户Key</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="cc_password">端对端加密密码</label>
+                    <input type="text" id="cc_password" name="cc_server.password" value="">
+                    <div class="help-text">CC插件生成的端到端密码</div>
+                </div>
+                <div class="form-item">
+                    <label for="forceSync">强制同步</label>
+                    <button type="button" class="btn" id="forceSync" onclick="getCookieCloud()">同步</button>
+                    <div class="help-text">人工强制拉取cookie信息写入配置文件。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 站点综合配置 -->
+        <div class="section">
+            <div class="section-title">站点综合配置</div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="site_selector">选择配置站点</label>
+                    <select id="site_selector" name="site_selector">
+                        <option value="">-- 请选择站点 --</option>
+                        <option value="audiences.me">观众</option>
+                        <option value="springsunday.net">春天</option>
+                        <option value="hhanclub.top">憨憨</option>
+                        <option value="ubits.club">优堡</option>
+                        <option value="hdhome.org">家园</option>
+                        <option value="www.hddolby.com">杜比</option>
+                        <option value="pterclub.net">猫站</option>
+                        <option value="pt.keepfrds.com">朋友</option>
+                        <option value="zmpt.cc">织梦</option>
+                        <option value="reelflix.xyz">RF</option>
+                        <option value="filelist.io">FL</option>
+                        <option value="ourbits.club">我堡</option>
+                        <option value="sunnypt.top">阳光</option>
+                        <option value="ptlgs.org">劳改所</option>
+                        <option value="pt.xingyungept.org">星陨阁</option>
+                        <option value="cspt.top">财神</option>
+                        <option value="www.hdkyl.in">麒麟</option>
+                        <option value="hdsky.me">天空</option>
+                        <option value="kp.m-team.cc">馒头</option>
+                    </select>
+                    <div class="help-text">选择需要配置的站点，将显示对应的配置项</div>
+                </div>
+            </div>
+
+            <!-- 动态配置区域 -->
+            <div id="site_config_container" style="display:none;">
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="site_is_used">
+                            <input type="checkbox" id="site_is_used" name="is_used[selected_site]"> 使用此源站
+                        </label>
+                        <div class="help-text">是否拉取本站</div>
+                    </div>
+                    <div class="form-item">
+                        <label for="site_domain">域名映射</label>
+                        <input type="text" id="site_domain" name="domain[selected_site]" value="">
+                        <div class="help-text">设置站点域名地址</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="site_seed_size_less_GB">种子体积上限</label>
+                        <input type="text" id="site_seed_size_less_GB" name="seed_size_less_GB[selected_site]" value="40">
+                        <div class="help-text">拉取体积小于此值的种子</div>
+                    </div>
+                    <div class="form-item">
+                        <label for="site_seed_size_more_GB">种子体积下限</label>
+                        <input type="number" id="site_seed_size_more_GB" name="seed_size_more_GB[selected_site]" value="10">
+                        <div class="help-text">拉取体积大于此值的种子</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="site_cookies">Cookies</label>
+                        <textarea id="site_cookies" name="cookies[selected_site]" rows="3"></textarea>
+                        <div class="help-text">站点Cookies信息</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="site_url">RSS 链接</label>
+                        <input type="text" id="site_url" name="url[selected_site]">
+                        <div class="help-text">请从网站RSS生成链接里找passkey后，自行补充在最后的等于号后。如果想要自己生成RSS链接则必须选中【[标题格式]中的[类型]和[大小]】</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 企业微信通知配置 -->
+        <div class="section">
+            <div class="section-title">企业微信通知配置</div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="qywx_is_used">
+                        <input type="checkbox" id="qywx_is_used" name="qiyeweixin.is_used"> 企业微信通知
+                    </label>
+                    <div class="help-text">是否启用企业微信通知功能</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="help-text">配置值打开https://work.weixin.qq.com/wework_admin/frame页面后获取</div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="corpsecret">公司密钥</label>
+                    <input type="password" id="corpsecret" name="qiyeweixin.corpsecret" value="">
+                    <div class="help-text">应用管理标签中的自定义应用详情页面中Secret内容</div>
+                </div>
+                <div class="form-item">
+                    <label for="agentid">代理ID</label>
+                    <input type="text" id="agentid" name="qiyeweixin.agentid" value="">
+                    <div class="help-text">应用管理标签中的自定义应用详情页面中AgentId内容</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="corpid">公司ID</label>
+                    <input type="text" id="corpid" name="qiyeweixin.corpid" value="">
+                    <div class="help-text">我的企业标签中的企业ID</div>
+                </div>
+                <div class="form-item">
+                    <label for="userid">用户ID</label>
+                    <input type="text" id="userid" name="qiyeweixin.userid" value="">
+                    <div class="help-text">通讯录标签中成员详情中的账号</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="mobile">手机号</label>
+                    <input type="text" id="mobile" name="qiyeweixin.mobile" value="">
+                    <div class="help-text">通讯录标签中成员详情中的手机</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 邮件通知配置 -->
+        <div class="section">
+            <div class="section-title">邮件通知配置</div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="email_is_used">
+                        <input type="checkbox" id="email_is_used" name="email.is_used"> 邮件通知
+                    </label>
+                    <div class="help-text">是否启用邮件通知功能</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="SMTP_SERVER">SMTP服务器</label>
+                    <input type="text" id="SMTP_SERVER" name="email.SMTP_SERVER" value="">
+                    <div class="help-text">SMTP发送邮件服务器，如 smtp.exmail.qq.com:465</div>
+                </div>
+                <div class="form-item">
+                    <label for="SMTP_SSL">
+                        <input type="checkbox" id="SMTP_SSL" name="email.SMTP_SSL"> 使用SSL
+                    </label>
+                    <div class="help-text">SMTP发送邮件服务器是否使用SSL</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="SMTP_EMAIL">发件邮箱</label>
+                    <input type="email" id="SMTP_EMAIL" name="email.SMTP_EMAIL" value="">
+                    <div class="help-text">SMTP收发件邮箱，通知将会由自己发给自己</div>
+                </div>
+                <div class="form-item">
+                    <label for="SMTP_PASSWORD">邮箱密码</label>
+                    <input type="password" id="SMTP_PASSWORD" name="email.SMTP_PASSWORD" value="">
+                    <div class="help-text">SMTP登录密码，也可能为特殊口令</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="SMTP_NAME">发件人姓名</label>
+                    <input type="text" id="SMTP_NAME" name="email.SMTP_NAME" value="">
+                    <div class="help-text">SMTP收发件人姓名，可随意填写</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IYUU通知配置 -->
+        <div class="section">
+            <div class="section-title">IYUU通知配置</div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for="iyuu_is_used">
+                        <input type="checkbox" id="iyuu_is_used" name="iyuu.is_used"> IYUU通知
+                    </label>
+                    <div class="help-text">是否启用IYUU通知功能</div>
+                </div>
+                <div class="form-item">
+                    <label for="iyuu_token">IYUU Token</label>
+                    <input type="password" id="iyuu_token" name="iyuu.iyuu_token" value="">
+                    <div class="help-text">IYUU的token</div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    const baseUrl = "sv/rss/api";
+    let old_config = {};
+    let new_config = {};
+    let currentSelectedSite = '';
+
+    async function loadConfig() {
+        try {
+            const password = document.getElementById('adminPassword').value;
+            if (!password) {
+                alert('请输入密码后再加载配置');
+                return;
+            }
+            const response = await fetch(baseUrl + '/getMainConfig', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({pw: password})
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const config = await response.json();
+            if (parseInt(config.code) !== 200) {
+                throw new Error(`${config.msg}`);
+            }
+            old_config = JSON.parse(config.msg);
+            new_config = JSON.parse(config.msg);
+            fillForm(new_config);
+            document.getElementById('configForm').style.display = 'block';
+        } catch (error) {
+            alert('加载配置失败:' + error.message);
+        }
+    }
+
+    function fillForm(config) {
+        document.getElementById('port').value = config.port || 56789;
+        document.getElementById('is_debug').checked = config.is_debug || false;
+        document.getElementById('time_to_rss').value = config.time_to_rss || 10;
+        document.getElementById('time_to_rss_list').value = config.time_to_rss_list || 10;
+        document.getElementById('queue_num').value = config.queue_num || 20;
+        document.getElementById('send_num').value = config.send_num || 2;
+        document.getElementById('num_per_turn').value = config.num_per_turn || 2;
+        document.getElementById('douban_ck').value = config.douban_ck || "";
+        document.getElementById('ptgen').value = config.ptgen || "";
+        document.getElementById('cache_use').checked = config.cache_use === true;
+        if (config.cc_server) {
+            document.getElementById('cc_url').value = config.cc_server.url;
+            document.getElementById('cc_key').value = config.cc_server.key;
+            document.getElementById('cc_password').value = config.cc_server.password;
+        }
+        if (config.rss) {
+            document.getElementById('free_check').checked = config.rss.free_check !== undefined ? config.rss.free_check : true;
+            document.getElementById('time_check').value = isNaN(parseFloat(config.rss.time_check)) ? 5 : parseFloat(config.rss.time_check);
+            document.getElementById('hr_check').checked = config.rss.hr_check !== undefined ? config.rss.hr_check : true;
+            document.getElementById('quick_scan').checked = config.rss.quick_scan || false;
+        }
+        if (config.qiyeweixin) {
+            document.getElementById('qywx_is_used').checked = config.qiyeweixin.is_used || false;
+            document.getElementById('corpsecret').value = config.qiyeweixin.corpsecret || "";
+            document.getElementById('agentid').value = config.qiyeweixin.agentid || "";
+            document.getElementById('corpid').value = config.qiyeweixin.corpid || "";
+            document.getElementById('userid').value = config.qiyeweixin.userid || "";
+            document.getElementById('mobile').value = config.qiyeweixin.mobile || "";
+        }
+        if (config.email) {
+            document.getElementById('email_is_used').checked = config.email.is_used || false;
+            document.getElementById('SMTP_SERVER').value = config.email.SMTP_SERVER || "";
+            document.getElementById('SMTP_SSL').checked = config.email.SMTP_SSL || false;
+            document.getElementById('SMTP_EMAIL').value = config.email.SMTP_EMAIL || "";
+            document.getElementById('SMTP_PASSWORD').value = config.email.SMTP_PASSWORD || "";
+            document.getElementById('SMTP_NAME').value = config.email.SMTP_NAME || "";
+        }
+        if (config.iyuu) {
+            document.getElementById('iyuu_is_used').checked = config.iyuu.is_used || false;
+            document.getElementById('iyuu_token').value = config.iyuu.iyuu_token || "";
+        }
+    }
+
+    document.getElementById('site_selector').addEventListener('change', function () {
+        const selectedSite = this.value;
+        currentSelectedSite = this.value;
+        const container = document.getElementById('site_config_container');
+        const previousSelectedSite = container.dataset.currentSite;
+        if (previousSelectedSite) {
+            saveCurrentSiteConfig(previousSelectedSite);
+        }
+
+        if (selectedSite) {
+            container.style.display = 'block';
+            container.dataset.currentSite = selectedSite;
+
+            document.getElementById('site_is_used').name = `is_used.${selectedSite}`;
+            document.getElementById('site_domain').name = `domain.${selectedSite}`;
+            document.getElementById('site_cookies').name = `cookies.${selectedSite}`;
+            document.getElementById('site_seed_size_less_GB').name = `seed_size_less_GB.${selectedSite}`;
+            document.getElementById('site_seed_size_more_GB').name = `seed_size_more_GB.${selectedSite}`;
+            document.getElementById('site_url').name = `url.${selectedSite}`;
+            if (selectedSite === 'kp.m-team.cc') {
+                document.getElementById('site_cookies').placeholder = "请从站点获取令牌替换xxx的内容：x-api-key=xxx"
+            } else {
+                document.getElementById('site_cookies').placeholder = "请从站点请求中复制Cookies信息"
+            }
+            if (new_config.rss.is_used && new_config.rss.is_used[selectedSite] !== undefined) {
+                document.getElementById('site_is_used').checked = new_config.rss.is_used[selectedSite];
+            } else {
+                document.getElementById('site_is_used').checked = false;
+            }
+            if (new_config.rss.domain && new_config.rss.domain[selectedSite] !== undefined) {
+                document.getElementById('site_domain').value = new_config.rss.domain[selectedSite];
+            } else {
+                document.getElementById('site_domain').value = selectedSite;
+            }
+            if (new_config.rss.cookies && new_config.rss.cookies[selectedSite] !== undefined) {
+                document.getElementById('site_cookies').value = new_config.rss.cookies[selectedSite];
+            } else {
+                document.getElementById('site_cookies').value = '';
+            }
+            if (new_config.rss.seed_size_less_GB && new_config.rss.seed_size_less_GB[selectedSite] !== undefined) {
+                document.getElementById('site_seed_size_less_GB').value = new_config.rss.seed_size_less_GB[selectedSite];
+            } else {
+                document.getElementById('site_seed_size_less_GB').value = 40;
+            }
+            if (new_config.rss.seed_size_more_GB && new_config.rss.seed_size_more_GB[selectedSite] !== undefined) {
+                document.getElementById('site_seed_size_more_GB').value = new_config.rss.seed_size_more_GB[selectedSite];
+            } else {
+                document.getElementById('site_seed_size_more_GB').value = 10;
+            }
+            if (new_config.rss.url && new_config.rss.url[selectedSite] !== undefined) {
+                document.getElementById('site_url').value = new_config.rss.url[selectedSite];
+            } else {
+                document.getElementById('site_url').value = 10;
+            }
+        } else {
+            currentSelectedSite = '';
+            container.dataset.currentSite = '';
+            container.style.display = 'none';
+        }
+    });
+
+    function saveCurrentSiteConfig(site) {
+        const selectedSite = site || document.getElementById('site_selector').value;
+        if (selectedSite) {
+            if (!new_config.rss.is_used) new_config.rss.is_used = {};
+            if (!new_config.rss.domain) new_config.rss.domain = {};
+            if (!new_config.rss.cookies) new_config.rss.cookies = {};
+            if (!new_config.rss.seed_size_less_GB) new_config.rss.seed_size_less_GB = {};
+            if (!new_config.rss.seed_size_more_GB) new_config.rss.seed_size_more_GB = {};
+            if (!new_config.rss.url) new_config.rss.url = {};
+            new_config.rss.is_used[selectedSite] = document.getElementById('site_is_used').checked;
+            new_config.rss.domain[selectedSite] = document.getElementById('site_domain').value;
+            new_config.rss.cookies[selectedSite] = document.getElementById('site_cookies').value;
+            new_config.rss.seed_size_less_GB[selectedSite] = parseFloat(document.getElementById('site_seed_size_less_GB').value);
+            new_config.rss.seed_size_more_GB[selectedSite] = parseFloat(document.getElementById('site_seed_size_more_GB').value);
+            new_config.rss.url[selectedSite] = document.getElementById('site_url').value;
+        }
+    }
+
+    function addBlurListeners() {
+        document.getElementById('port').addEventListener('blur', function () {
+            new_config.port = parseInt(this.value);
+        });
+
+        document.getElementById('is_debug').addEventListener('change', function () {
+            new_config.is_debug = this.checked;
+        });
+
+        document.getElementById('time_to_rss').addEventListener('blur', function () {
+            new_config.time_to_rss = parseInt(this.value);
+        });
+
+        document.getElementById('time_to_rss_list').addEventListener('blur', function () {
+            new_config.time_to_rss_list = parseInt(this.value);
+        });
+
+        document.getElementById('queue_num').addEventListener('blur', function () {
+            new_config.queue_num = parseInt(this.value);
+        });
+
+        document.getElementById('send_num').addEventListener('blur', function () {
+            new_config.send_num = parseInt(this.value);
+        });
+
+        document.getElementById('num_per_turn').addEventListener('blur', function () {
+            new_config.num_per_turn = parseInt(this.value);
+        });
+
+        document.getElementById('douban_ck').addEventListener('blur', function () {
+            new_config.douban_ck = this.value;
+        });
+
+        document.getElementById('ptgen').addEventListener('blur', function () {
+            new_config.ptgen = this.value;
+        });
+
+        document.getElementById('cache_use').addEventListener('change', function () {
+            new_config.cache_use = this.checked;
+        });
+
+        // RSS子配置
+        document.getElementById('free_check').addEventListener('change', function () {
+            if (!new_config.rss) new_config.rss = {};
+            new_config.rss.free_check = this.checked;
+        });
+
+        document.getElementById('time_check').addEventListener('blur', function () {
+            if (!new_config.rss) new_config.rss = {};
+            new_config.rss.time_check = parseFloat(this.value);
+        });
+
+        document.getElementById('hr_check').addEventListener('change', function () {
+            if (!new_config.rss) new_config.rss = {};
+            new_config.rss.hr_check = this.checked;
+        });
+
+        document.getElementById('quick_scan').addEventListener('change', function () {
+            if (!new_config.rss) new_config.rss = {};
+            new_config.rss.quick_scan = this.checked;
+        });
+
+        document.getElementById('cc_url').addEventListener('blur', function () {
+            if (!new_config.cc_server) new_config.cc_server = {};
+            new_config.cc_server.url = this.value;
+        });
+
+        document.getElementById('cc_key').addEventListener('blur', function () {
+            if (!new_config.cc_server) new_config.cc_server = {};
+            new_config.cc_server.key = this.value;
+        });
+
+        document.getElementById('cc_password').addEventListener('blur', function () {
+            if (!new_config.cc_server) new_config.cc_server = {};
+            new_config.cc_server.password = this.value;
+        });
+
+        document.getElementById('site_is_used').addEventListener('change', function () {
+            if (!new_config.rss) new_config.rss = {};
+            if (!new_config.rss.is_used) new_config.rss.is_used = {};
+            new_config.rss.is_used[currentSelectedSite] = this.checked;
+        });
+
+        document.getElementById('site_domain').addEventListener('blur', function () {
+            if (!new_config.rss) new_config.rss = {};
+            if (!new_config.rss.domain) new_config.rss.domain = {};
+            new_config.rss.domain[currentSelectedSite] = this.value;
+        });
+
+        document.getElementById('site_cookies').addEventListener('blur', function () {
+            if (!new_config.rss) new_config.rss = {};
+            if (!new_config.rss.cookies) new_config.rss.cookies = {};
+            new_config.rss.cookies[currentSelectedSite] = this.value;
+        });
+
+        document.getElementById('site_seed_size_less_GB').addEventListener('blur', function () {
+            if (!new_config.rss) new_config.rss = {};
+            if (!new_config.rss.seed_size_less_GB) new_config.rss.seed_size_less_GB = {};
+            new_config.rss.seed_size_less_GB[currentSelectedSite] = this.value;
+        });
+
+        document.getElementById('site_seed_size_more_GB').addEventListener('blur', function () {
+            if (!new_config.rss) new_config.rss = {};
+            if (!new_config.rss.seed_size_more_GB) new_config.rss.seed_size_more_GB = {};
+            new_config.rss.seed_size_more_GB[currentSelectedSite] = parseFloat(this.value);
+        });
+
+        // 通知配置
+        document.getElementById('qywx_is_used').addEventListener('change', function () {
+            if (!new_config.qiyeweixin) new_config.qiyeweixin = {};
+            new_config.qiyeweixin.is_used = this.checked;
+        });
+
+        document.getElementById('corpsecret').addEventListener('blur', function () {
+            if (!new_config.qiyeweixin) new_config.qiyeweixin = {};
+            new_config.qiyeweixin.corpsecret = this.value;
+        });
+
+        document.getElementById('agentid').addEventListener('blur', function () {
+            if (!new_config.qiyeweixin) new_config.qiyeweixin = {};
+            new_config.qiyeweixin.agentid = this.value;
+        });
+
+        document.getElementById('corpid').addEventListener('blur', function () {
+            if (!new_config.qiyeweixin) new_config.qiyeweixin = {};
+            new_config.qiyeweixin.corpid = this.value;
+        });
+
+        document.getElementById('userid').addEventListener('blur', function () {
+            if (!new_config.qiyeweixin) new_config.qiyeweixin = {};
+            new_config.qiyeweixin.userid = this.value;
+        });
+
+        document.getElementById('mobile').addEventListener('blur', function () {
+            if (!new_config.qiyeweixin) new_config.qiyeweixin = {};
+            new_config.qiyeweixin.mobile = this.value;
+        });
+
+        document.getElementById('email_is_used').addEventListener('change', function () {
+            if (!new_config.email) new_config.email = {};
+            new_config.email.is_used = this.checked;
+        });
+
+        document.getElementById('SMTP_SERVER').addEventListener('blur', function () {
+            if (!new_config.email) new_config.email = {};
+            new_config.email.SMTP_SERVER = this.value;
+        });
+
+        document.getElementById('SMTP_SSL').addEventListener('change', function () {
+            if (!new_config.email) new_config.email = {};
+            new_config.email.SMTP_SSL = this.checked;
+        });
+
+        document.getElementById('SMTP_EMAIL').addEventListener('blur', function () {
+            if (!new_config.email) new_config.email = {};
+            new_config.email.SMTP_EMAIL = this.value;
+        });
+
+        document.getElementById('SMTP_PASSWORD').addEventListener('blur', function () {
+            if (!new_config.email) new_config.email = {};
+            new_config.email.SMTP_PASSWORD = this.value;
+        });
+
+        document.getElementById('SMTP_NAME').addEventListener('blur', function () {
+            if (!new_config.email) new_config.email = {};
+            new_config.email.SMTP_NAME = this.value;
+        });
+
+        document.getElementById('iyuu_is_used').addEventListener('change', function () {
+            if (!new_config.iyuu) new_config.iyuu = {};
+            new_config.iyuu.is_used = this.checked;
+        });
+
+        document.getElementById('iyuu_token').addEventListener('blur', function () {
+            if (!new_config.iyuu) new_config.iyuu = {};
+            new_config.iyuu.iyuu_token = this.value;
+        });
+    }
+
+    function getObjectDiff(obj1, obj2, prefix = '') {
+        const diff = {};
+
+        for (const key in obj2) {
+            if (obj2.hasOwnProperty(key)) {
+                const fullPath = prefix ? `${prefix}.${key}` : key;
+
+                if (typeof obj2[key] === 'object' && obj2[key] !== null && !Array.isArray(obj2[key])) {
+                    const nestedDiff = getObjectDiff(
+                        obj1[key] || {},
+                        obj2[key],
+                        fullPath
+                    );
+                    if (Object.keys(nestedDiff).length > 0) {
+                        diff[fullPath] = nestedDiff;
+                    }
+                } else {
+                    const val1 = obj1[key];
+                    const val2 = obj2[key];
+                    if (Array.isArray(val1) && Array.isArray(val2)) {
+                        if (JSON.stringify(val1) !== JSON.stringify(val2)) {
+                            diff[fullPath] = {old: val1, new: val2};
+                        }
+                    } else if (val1 !== val2) {
+                        diff[fullPath] = {old: val1, new: val2};
+                    }
+                }
+            }
+        }
+
+        return diff;
+    }
+
+    function showConfigChanges() {
+        const changes = getObjectDiff(old_config, new_config);
+
+        if (Object.keys(changes).length === 0) {
+            return "没有配置项发生变更";
+        }
+
+        let changeList = "以下配置项将被修改:\n\n";
+
+        function formatChange(path, change) {
+            if (typeof change === 'object' && change.old !== undefined && change.new !== undefined) {
+                return `${path}: ${JSON.stringify(change.old)} -> ${JSON.stringify(change.new)}\n`;
+            } else if (typeof change === 'object' && Object.keys(change).length > 0) {
+                let result = '';
+                for (const key in change) {
+                    result += formatChange(`${path}.${key}`, change[key]);
+                }
+                return result;
+            }
+            return '';
+        }
+
+        for (const key in changes) {
+            changeList += formatChange(key, changes[key]);
+        }
+
+        return changeList;
+    }
+
+    function getCookieCloud() {
+        fetch(baseUrl + '/getCookieCloud', {
+            method: 'GET'
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('拉取CC配置失败');
+            })
+            .then(data => {
+                if (data.code === 200) {
+                    alert(data.msg);
+                    window.location.reload(true);
+                } else {
+                    alert(data.msg);
+                }
+            })
+            .catch(error => {
+                alert('配置备份失败，' + error.message);
+            });
+    }
+
+    function saveConfig() {
+        const password = document.getElementById('adminPassword').value;
+        if (!password) {
+            alert('请输入密码后再保存配置');
+            return;
+        }
+        saveCurrentSiteConfig();
+
+        const changes = showConfigChanges();
+
+        if (confirm(changes + "\n\n确认保存这些更改吗？")) {
+            fetch(baseUrl + '/setMainConfig', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({'pw': password, 'toml': new_config})
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    if (data.code === 200) {
+                        alert(data.msg);
+                        old_config = JSON.parse(JSON.stringify(new_config));
+                    } else {
+                        alert('配置保存失败：' + data.msg);
+                    }
+                })
+                .catch(error => {
+                    alert('配置保存失败，' + error.message);
+                });
+        }
+    }
+
+    function backupConfig() {
+        if (confirm('确定要备份当前配置吗？')) {
+            fetch(baseUrl + '/backupMainConfig', {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Backup failed');
+                })
+                .then(data => {
+                    if (data.code === 200) {
+                        alert(data.msg);
+                    } else {
+                        alert('配置备份失败：' + data.msg);
+                    }
+                })
+                .catch(error => {
+                    alert('配置备份失败，' + error.message);
+                });
+        }
+    }
+
+    function restoreConfig() {
+        if (confirm('确定要从备份恢复配置吗？这将覆盖当前的所有配置！')) {
+            fetch(baseUrl + '/restoreMainConfig', {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Restore failed');
+                })
+                .then(data => {
+                    if (data.code === 200) {
+                        alert('配置恢复成功！页面将重新加载以应用配置。');
+                        location.reload();
+                    } else {
+                        alert('配置恢复失败：' + data.msg);
+                    }
+                })
+                .catch(error => {
+                    alert('配置恢复失败，' + error.message);
+                });
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+            const fixedButtons = document.querySelector('.fixed-top-buttons');
+            const buttonsHeight = fixedButtons.offsetHeight;
+            const container = document.querySelector('.container');
+            container.style.marginTop = (buttonsHeight + 20) + 'px';
+        }, 100);
+        addBlurListeners();
+    });
+</script>
+
+</body>
+</html>

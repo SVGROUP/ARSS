@@ -130,14 +130,6 @@ restart_app() {
     start_app
 }
 
-verify_app() {
-    echo "ready" > "$APP_DIR/state"
-    while [ "$(cat "$APP_DIR/state" 2>/dev/null)" != "running" ]; do
-        restart_app
-        sleep 60
-    done
-}
-
 if ! git remote | grep -q "^gitee$"; then
     echo "gitee remote not found, adding..."
     git remote add gitee https://gitee.com/SVGROUP/ARSS.git
@@ -146,8 +138,9 @@ fi
 git_pull_best
 # 首启：拉最新代码 + 尽力校验一次 hash（不阻塞启动；旧代码继续对外服务好过无服务）
 verify_release_hash || echo "[hash-verify] 首启不阻塞，用当前代码启动服务，等下次 CI 修复"
-if verify_app; then
-  while true; do
+restart_app
+
+while true; do
     if [ -f "$APP_DIR/upgrade" ]; then
       # 忙锁：Python 侧 run_rss 执行期间会写 task.busy，升级到位时先等其自然结束再 restart，
       # 避免打断轮巡任务。超时 1800s 兜底，避免 python 意外挂死永久阻塞升级；
@@ -185,4 +178,3 @@ if verify_app; then
       sleep 10
     fi
   done
-fi

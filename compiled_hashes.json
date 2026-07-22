@@ -28,7 +28,7 @@
     "x86_64::./util/ATUTException.py": "2cd7dd5814b417246035c5a5fe0f3afa",
     "x86_64::./util/notice.py": "297e1d4848e798aaef6c00c5409d1e62",
     "x86_64::./util/mapping_data.py": "832c2ecdbf23f7a85e18052a7f05c7e2",
-    "x86_64::./util/svlog.py": "adb0fbcbf428ef9000094f7474943631",
+    "x86_64::./util/svlog.py": "ea14138aee8cf7c0e7b12cb7118bbb7a",
     "x86_64::./util/tools.py": "a1c5e9a2ad08a32d1d0d4a97f6727624",
     "x86_64::model_config/readme_rss.txt": "a1cc0d408588f3a32956644ee5f9ab33",
     "x86_64::model_config/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
@@ -64,7 +64,7 @@
     "aarch64::./util/ATUTException.py": "2cd7dd5814b417246035c5a5fe0f3afa",
     "aarch64::./util/notice.py": "297e1d4848e798aaef6c00c5409d1e62",
     "aarch64::./util/mapping_data.py": "832c2ecdbf23f7a85e18052a7f05c7e2",
-    "aarch64::./util/svlog.py": "adb0fbcbf428ef9000094f7474943631",
+    "aarch64::./util/svlog.py": "ea14138aee8cf7c0e7b12cb7118bbb7a",
     "aarch64::./util/tools.py": "a1c5e9a2ad08a32d1d0d4a97f6727624",
     "aarch64::model_config/readme_rss.txt": "a1cc0d408588f3a32956644ee5f9ab33",
     "aarch64::model_config/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
@@ -88,12 +88,12 @@
     "aarch64::release/interface.html": "3300610c76282a560f6389943f054a78",
     "aarch64::release/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
     "aarch64::release/Dockerfile": "0d8d18ee98d7712251b6cb31dd41ba75",
-    "aarch64::release/compiled_hashes.json": "a00d65858f1d348f035f4d402c0a963c",
-    "aarch64::release/svlog.cpython-313-x86_64-linux-gnu.so": "b1da81fd83899a3d071fe554de2269e5",
+    "aarch64::release/compiled_hashes.json": "25242cefb907cfe52d9f1595bfdf17f7",
+    "aarch64::release/svlog.cpython-313-x86_64-linux-gnu.so": "88ba39cdcd4495bee0ed288458c2d319",
     "aarch64::release/readme.txt": "a4e609fbc14872b17eca0f7321b054e1",
     "aarch64::release/\u65b0\u589e\u7ad9\u70b9\u8981\u52a0\u6570\u636e\u5e93\uff0c\u8f6c\u6362\u5de5\u5382.txt": "ef31cc26d69415e45cedc60dc33ad36d",
     "aarch64::release/AGENTS.md": "3021d9e200457797bd6a90abc76807d4",
     "aarch64::release/setup_test.sh": "88ea31323fc057525915c3bf7e338063"
   },
-  "last_git_commit": "6ecc2b9bc352e3da384c56e858eff9880441823a"
+  "last_git_commit": "7e90c38cd38949205791036d9dc17fa01fb4e848"
 }

@@ -32,7 +32,7 @@
     "x86_64::./util/tools.py": "a1c5e9a2ad08a32d1d0d4a97f6727624",
     "x86_64::model_config/readme_rss.txt": "a1cc0d408588f3a32956644ee5f9ab33",
     "x86_64::model_config/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
-    "x86_64::release/run.sh": "eaf794ad93ad9e5397ff895a223f6a73",
+    "x86_64::release/run.sh": "9822771f6c92770690ccb55324e5f57d",
     "x86_64::release/gitignore": "6b8bf2319984ac8f69282c862bf4c477",
     "x86_64::release/run.py": "7eeb69f695157b8831b8d3c58b6e2e3a",
     "x86_64::release/init.sh": "ef4af201cfdca5124cb045a480c911f5",
@@ -68,12 +68,12 @@
     "aarch64::./util/tools.py": "a1c5e9a2ad08a32d1d0d4a97f6727624",
     "aarch64::model_config/readme_rss.txt": "a1cc0d408588f3a32956644ee5f9ab33",
     "aarch64::model_config/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
-    "aarch64::release/run.sh": "eaf794ad93ad9e5397ff895a223f6a73",
+    "aarch64::release/run.sh": "9822771f6c92770690ccb55324e5f57d",
     "aarch64::release/gitignore": "6b8bf2319984ac8f69282c862bf4c477",
     "aarch64::release/run.py": "7eeb69f695157b8831b8d3c58b6e2e3a",
     "aarch64::release/init.sh": "ef4af201cfdca5124cb045a480c911f5",
-    "x86_64::./util/upgrade_checker.py": "4dee4ffcacaf66c67fe265fa02887ba1",
-    "aarch64::./util/upgrade_checker.py": "4dee4ffcacaf66c67fe265fa02887ba1",
+    "x86_64::./util/upgrade_checker.py": "061ece2bc2cd2d7fb1bd6db5c2f9e094",
+    "aarch64::./util/upgrade_checker.py": "061ece2bc2cd2d7fb1bd6db5c2f9e094",
     "aarch64::release/index.html": "d083e9ec10bcd2c4cdc3c84ff7596d02",
     "aarch64::release/setup_no_force.sh": "410ba1e45140be041e5c40e23a11f8a9",
     "aarch64::release/favicon.ico": "55078cdefc012622fb33347af42b1c0e",
@@ -88,12 +88,12 @@
     "aarch64::release/interface.html": "3300610c76282a560f6389943f054a78",
     "aarch64::release/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
     "aarch64::release/Dockerfile": "0d8d18ee98d7712251b6cb31dd41ba75",
-    "aarch64::release/compiled_hashes.json": "25242cefb907cfe52d9f1595bfdf17f7",
-    "aarch64::release/svlog.cpython-313-x86_64-linux-gnu.so": "88ba39cdcd4495bee0ed288458c2d319",
+    "aarch64::release/compiled_hashes.json": "8fd2fc062c3c4ef9b0d91f1b0d4f0eb1",
     "aarch64::release/readme.txt": "a4e609fbc14872b17eca0f7321b054e1",
     "aarch64::release/\u65b0\u589e\u7ad9\u70b9\u8981\u52a0\u6570\u636e\u5e93\uff0c\u8f6c\u6362\u5de5\u5382.txt": "ef31cc26d69415e45cedc60dc33ad36d",
     "aarch64::release/AGENTS.md": "3021d9e200457797bd6a90abc76807d4",
-    "aarch64::release/setup_test.sh": "88ea31323fc057525915c3bf7e338063"
+    "aarch64::release/setup_test.sh": "88ea31323fc057525915c3bf7e338063",
+    "aarch64::release/upgrade_checker.cpython-313-x86_64-linux-gnu.so": "cc8db1acccb44ade455314c766f85513"
   },
-  "last_git_commit": "7e90c38cd38949205791036d9dc17fa01fb4e848"
+  "last_git_commit": "3f3f4705783ab2a0689b98edd15c04c2e469c852"
 }

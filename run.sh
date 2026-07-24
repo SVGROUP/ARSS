@@ -182,7 +182,7 @@ while true; do
     # 事件驱动：/auto_rss/upgrade 一被创建立即唤醒；无 inotify 则退回短 sleep。
     # inotifywait 设 300s 超时作为兜底周期，避免长期阻塞。
     if command -v inotifywait >/dev/null 2>&1; then
-      inotifywait -qq -t 300 -e create -e moved_to "$APP_DIR/" 2>/dev/null || sleep 5
+      inotifywait -qq -t 300 -e create -e modify -e moved_to "$APP_DIR/" 2>/dev/null || sleep 5
     else
       sleep 10
     fi

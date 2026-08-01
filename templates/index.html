@@ -5,54 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>自动拉种工具</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 800px;
-            margin: 100px auto;
-            text-align: center;
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
-        }
-        .links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        .link-item {
-            padding: 20px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            min-width: 150px;
-        }
-        .link-item:hover {
-            background-color: #2980b9;
-        }
-        .link-item h2 {
-            margin: 0 0 10px 0;
-            font-size: 1.2em;
-        }
-        .link-item p {
-            margin: 0;
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}?v=1">
 </head>
 <body>
     <div class="container">
@@ -70,5 +23,6 @@
             </a>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/index.js') }}?v=1"></script>
 </body>
 </html>

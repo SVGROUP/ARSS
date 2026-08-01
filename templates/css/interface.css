@@ -1,0 +1,169 @@
+/* interface.html 样式 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+.api-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.section-title {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group button,
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-group button:hover,
+button:hover {
+    background-color: #2980b9;
+}
+
+.result {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    min-height: 1.5em;
+    max-height: calc(1.5em * 10);
+    overflow-y: auto;
+    line-height: 1.5;
+    font-family: monospace;
+}
+
+.result.error {
+    background-color: #e74c3c !important;
+    color: white;
+}
+
+.result.success {
+    background-color: #2ecc71 !important;
+    color: white;
+}
+
+.interface-container {
+    border: 1px solid #eee;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.interface-title {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.interface-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.interface-row > .interface-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .interface-row {
+        flex-direction: column;
+    }
+    .interface-row > .interface-container {
+        min-width: 100%;
+    }
+}
+
+.back-button {
+    background-color: #95a5a6;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #7f8c8d;
+}
+
+.form-group-horizontal {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+
+.form-item {
+    flex: 1;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+}
+
+.checkbox-item label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: auto;
+}

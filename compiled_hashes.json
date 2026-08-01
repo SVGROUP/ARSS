@@ -1,6 +1,6 @@
 {
   "files": {
-    "x86_64::./atut_serv.py": "317cdc757dc0b1519c51c40ffb011381",
+    "x86_64::./atut_serv.py": "d11140c05856bad023502f2a1bd921d4",
     "x86_64::./operate_site/sunnypt.py": "f756724eb47a8c26fa61611560681847",
     "x86_64::./operate_site/hhanclub.py": "f4a6929fa66348163bc26f62aac315a5",
     "x86_64::./operate_site/springsunday.py": "5100f2d54bb130217b241cb39ddbc020",
@@ -36,7 +36,7 @@
     "x86_64::release/gitignore": "6b8bf2319984ac8f69282c862bf4c477",
     "x86_64::release/run.py": "7eeb69f695157b8831b8d3c58b6e2e3a",
     "x86_64::release/init.sh": "ef4af201cfdca5124cb045a480c911f5",
-    "aarch64::./atut_serv.py": "317cdc757dc0b1519c51c40ffb011381",
+    "aarch64::./atut_serv.py": "d11140c05856bad023502f2a1bd921d4",
     "aarch64::./operate_site/sunnypt.py": "f756724eb47a8c26fa61611560681847",
     "aarch64::./operate_site/hhanclub.py": "f4a6929fa66348163bc26f62aac315a5",
     "aarch64::./operate_site/springsunday.py": "5100f2d54bb130217b241cb39ddbc020",
@@ -97,7 +97,34 @@
     "aarch64::templates/js/interface.js": "0e17c5bec4695d5bfda9971a7f23e0ce",
     "aarch64::templates/js/index.js": "19f5e8396bd739584f9b59b838b08703",
     "aarch64::templates/js/config.js": "589d733a850aeec6323aaac37d75c1c8",
-    "aarch64::templates/js/shared/modal.js": "79a7c446fa07c5ddeeff236cf7c62a52"
+    "aarch64::templates/js/shared/modal.js": "79a7c446fa07c5ddeeff236cf7c62a52",
+    "aarch64::release/AGENTS.md": "088e80ed1cbbbd5f19913ad829816519",
+    "aarch64::release/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
+    "aarch64::release/modal.css": "3b92b82f7def2d34c009bb75abd3f9d0",
+    "aarch64::release/setup_test.sh": "88ea31323fc057525915c3bf7e338063",
+    "aarch64::release/commit.sh": "23a5d42504dac86c17d858f993140735",
+    "aarch64::release/config.html": "349a05080b18197e7282b1aca8480ff1",
+    "aarch64::release/favicon.ico": "55078cdefc012622fb33347af42b1c0e",
+    "aarch64::release/readme_rss.txt": "a1cc0d408588f3a32956644ee5f9ab33",
+    "aarch64::release/interface.js": "0e17c5bec4695d5bfda9971a7f23e0ce",
+    "aarch64::release/index.js": "19f5e8396bd739584f9b59b838b08703",
+    "aarch64::release/index.html": "96511fa0c2bf561d1d2ce8bec853b27b",
+    "aarch64::release/update_test.sh": "65537701a5c39c0d8c2730d2a4da280f",
+    "aarch64::release/config.js": "589d733a850aeec6323aaac37d75c1c8",
+    "aarch64::release/\u65b0\u589e\u7ad9\u70b9\u8981\u52a0\u6570\u636e\u5e93\uff0c\u8f6c\u6362\u5de5\u5382.txt": "ef31cc26d69415e45cedc60dc33ad36d",
+    "aarch64::release/readme.txt": "a4e609fbc14872b17eca0f7321b054e1",
+    "aarch64::release/modal.js": "79a7c446fa07c5ddeeff236cf7c62a52",
+    "aarch64::release/atut_serv.cpython-313-x86_64-linux-gnu.so": "f37de30a0296c6952846bc46e840193f",
+    "aarch64::release/interface.css": "87c859233e1dcaeee3f7361ead78d33a",
+    "aarch64::release/setup_force.sh": "ac364b915268811f6a6a04e4518b04f5",
+    "aarch64::release/interface.html": "0614038a3ba8513df4b43d46c9a2611d",
+    "aarch64::release/setup_no_force.sh": "410ba1e45140be041e5c40e23a11f8a9",
+    "aarch64::release/index.css": "6d90e640f0b4b468ca223b68524ea339",
+    "aarch64::release/config.css": "bb7d0fccbc2f06f78caa0c7e4c876f9b",
+    "aarch64::release/compiled_hashes.json": "f072baf39b65b3fa8aa19468204648af",
+    "aarch64::release/update_no_force.sh": "107460876fc2281aa7aa1dc54632567d",
+    "aarch64::release/update.sh": "28cbe969a68cbd0750016d97e60dd1d1",
+    "aarch64::release/setup.sh": "08992d492ca09912cccf341e2180f2c4"
   },
-  "last_git_commit": "5f4024944c5787c5d3b2edae1b1cb1c193e981a9"
+  "last_git_commit": "b3cc348324319dd41b67bfb91aa7eea77bc4abad"
 }

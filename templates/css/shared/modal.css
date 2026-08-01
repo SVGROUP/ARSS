@@ -5,9 +5,9 @@
   --modal-primary-end:   #764ba2;
   --modal-primary-shadow:        rgba(102, 126, 234, 0.4);
   --modal-primary-shadow-soft:   rgba(102, 126, 234, 0.35);
-  --modal-danger-start:  #f56565;
-  --modal-danger-end:    #e53e3e;
-  --modal-danger-shadow:         rgba(229, 62, 62, 0.4);
+  --modal-danger-start:  var(--sv-danger-strong);
+  --modal-danger-end:    var(--sv-danger-strong-hover);
+  --modal-danger-shadow:         rgba(220, 53, 69, 0.4);
 }
 
 /* 遮罩 */
@@ -199,7 +199,8 @@
   --modal-primary-end:     #005a87;
   --modal-primary-shadow:        rgba(0, 124, 186, 0.4);
   --modal-primary-shadow-soft:   rgba(0, 124, 186, 0.35);
-  --modal-danger-start:    #dc3545;
-  --modal-danger-end:      #c82333;
+  /* 危险色统一走 theme.css 语义变量，避免这里与 config/interface 的红色各写一套 */
+  --modal-danger-start:    var(--sv-danger-strong);
+  --modal-danger-end:      var(--sv-danger-strong-hover);
   --modal-danger-shadow:         rgba(220, 53, 69, 0.4);
 }

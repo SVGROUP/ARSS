@@ -83,12 +83,12 @@ button:hover {
 }
 
 .result.error {
-    background-color: #e74c3c !important;
+    background-color: var(--sv-danger-strong) !important;
     color: white;
 }
 
 .result.success {
-    background-color: #2ecc71 !important;
+    background-color: var(--sv-success-strong) !important;
     color: white;
 }
 

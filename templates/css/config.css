@@ -127,28 +127,28 @@
         }
 
         .btn-red {
-            background-color: #dc3545;
+            background-color: var(--sv-danger-strong);
         }
 
         .btn-red:hover {
-            background-color: #c82333;
+            background-color: var(--sv-danger-strong-hover);
         }
 
         .btn-green {
-            background-color: #28a745;
+            background-color: var(--sv-success-strong);
         }
 
         .btn-green:hover {
-            background-color: #218838;
+            background-color: var(--sv-success-strong-hover);
         }
 
         .btn-yellow {
-            background-color: #ffc107;
-            color: #212529;
+            background-color: var(--sv-warning-strong);
+            color: var(--sv-warning-strong-text);
         }
 
         .btn-yellow:hover {
-            background-color: #e0a800;
+            background-color: var(--sv-warning-strong-hover);
         }
 
         .back-button {

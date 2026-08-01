@@ -1,0 +1,41 @@
+/* ============================================================
+   语义色板（单一真源）
+   ------------------------------------------------------------
+   背景：2026-08-01 审计发现「成功绿」在同一套 UI 里有 4 种写法
+   （rgb(25,106,13) / #2ecc71 / #28a745 / #27ae60），「异常红」有 4 种
+   （#e74c3c / #dc3545 / red / #f56565），ADTU 与 ARSS 之间也不一致。
+
+   规则：任何表达「成功 / 失败 / 警告」语义的颜色都必须用本文件的变量，
+   禁止再往 css 里写死十六进制。基准取 Bootstrap 语义色，因为两个项目的
+   .btn-green / .btn-red 本来就是这一套，改动面最小。
+
+   - *-strong      实心底色（按钮、结果条），配白字
+   - *-strong-hover  上述的 hover 态
+   - *-soft        浅底（表格行、提示块），配深色正文
+   - *-soft-hover    上述的 hover 态
+
+   本文件需被所有页面在其它 css 之前引入。
+   ============================================================ */
+
+:root {
+  /* 成功 / 正常 */
+  --sv-success-strong:       #28a745;
+  --sv-success-strong-hover: #218838;
+  --sv-success-soft:         #d4edda;
+  --sv-success-soft-hover:   #b7dfc0;
+
+  /* 异常 / 危险 / 失败 */
+  --sv-danger-strong:        #dc3545;
+  --sv-danger-strong-hover:  #c82333;
+  --sv-danger-soft:          #f8d7da;
+  --sv-danger-soft-hover:    #f1b0b7;
+
+  /* 警告 / 待处理 */
+  --sv-warning-strong:       #ffc107;
+  --sv-warning-strong-hover: #e0a800;
+  --sv-warning-soft:         #fff3cd;
+  --sv-warning-soft-hover:   #ffe69c;
+
+  /* 警告实心底配深字（黄底白字对比度不足） */
+  --sv-warning-strong-text:  #212529;
+}

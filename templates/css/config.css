@@ -1,17 +1,17 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f5f5f5;
+            background-color: var(--sv-page-bg);
         }
 
         .container {
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
-            background-color: white;
+            background-color: var(--sv-card-bg);
             padding: 10px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px var(--sv-shadow-1);
         }
 
         .fixed-top-buttons {
@@ -19,22 +19,22 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: white;
+            background-color: var(--sv-card-bg);
             padding: 5px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px var(--sv-shadow-1);
             z-index: 1000;
             text-align: center;
         }
 
         .fixed-top-buttons h1 {
-            color: #333;
+            color: var(--sv-text-2);
             margin: 0 0 5px 5px;
             font-size: 24px;
         }
 
         .fixed-top-buttons .help-text {
             margin-bottom: 5px;
-            color: #777;
+            color: var(--sv-text-4);
         }
 
         .fixed-top-buttons .btn {
@@ -42,13 +42,13 @@
         }
 
         h1 {
-            color: #333;
+            color: var(--sv-text-2);
             text-align: center;
         }
 
         .section {
             margin-bottom: 30px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--sv-border-soft);
             border-radius: 5px;
             padding: 15px;
         }
@@ -57,8 +57,8 @@
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 15px;
-            color: #007cba;
-            border-bottom: 1px solid #eee;
+            color: var(--sv-primary-strong);
+            border-bottom: 1px solid var(--sv-border);
             padding-bottom: 5px;
         }
 
@@ -79,13 +79,13 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: #555;
+            color: var(--sv-text-3);
         }
 
         .form-item input, .form-item select, .form-item textarea {
             width: 100%;
             padding: 8px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--sv-border-soft);
             border-radius: 4px;
             box-sizing: border-box;
         }
@@ -96,13 +96,13 @@
 
         .form-item .help-text {
             font-size: 12px;
-            color: #777;
+            color: var(--sv-text-4);
             margin-top: 3px;
         }
 
         .text {
             font-size: 12px;
-            color: #777;
+            color: var(--sv-text-4);
             margin-bottom: 4px;
         }
 
@@ -112,8 +112,8 @@
         }
 
         .btn {
-            background-color: #007cba;
-            color: white;
+            background-color: var(--sv-primary-strong);
+            color: var(--sv-card-bg);
             padding: 6px 15px;
             border: none;
             border-radius: 4px;
@@ -123,7 +123,7 @@
         }
 
         .btn:hover {
-            background-color: #005a87;
+            background-color: var(--sv-primary-strong-hover);
         }
 
         .btn-red {
@@ -152,12 +152,12 @@
         }
 
         .back-button {
-            background-color: #95a5a6;
-            color: white;
+            background-color: var(--sv-neutral-strong);
+            color: var(--sv-card-bg);
         }
 
         .back-button:hover {
-            background-color: #7f8c8d;
+            background-color: var(--sv-neutral-strong-hover);
         }
 
         @media (max-width: 768px) {

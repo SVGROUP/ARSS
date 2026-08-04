@@ -2,33 +2,33 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background-color: #f5f5f5;
+    background-color: var(--sv-page-bg);
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: white;
+    background-color: var(--sv-card-bg);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px var(--sv-shadow-1);
 }
 
 h1 {
-    color: #333;
+    color: var(--sv-text-2);
     text-align: center;
 }
 
 .api-section {
     margin-bottom: 30px;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--sv-border-soft);
     border-radius: 5px;
 }
 
 .section-title {
-    color: #2c3e50;
-    border-bottom: 2px solid #3498db;
+    color: var(--sv-text-1);
+    border-bottom: 2px solid var(--sv-btn-strong);
     padding-bottom: 10px;
     margin-top: 0;
 }
@@ -47,15 +47,15 @@ h1 {
 .form-group select {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--sv-border-soft);
     border-radius: 4px;
     box-sizing: border-box;
 }
 
 .form-group button,
 button {
-    background-color: #3498db;
-    color: white;
+    background-color: var(--sv-btn-strong);
+    color: var(--sv-card-bg);
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -65,13 +65,13 @@ button {
 
 .form-group button:hover,
 button:hover {
-    background-color: #2980b9;
+    background-color: var(--sv-btn-strong-hover);
 }
 
 .result {
     margin-top: 15px;
     padding: 15px;
-    background-color: #ecf0f1;
+    background-color: var(--sv-soft-bg);
     border-radius: 4px;
     white-space: pre-wrap;
     word-break: break-all;
@@ -84,16 +84,16 @@ button:hover {
 
 .result.error {
     background-color: var(--sv-danger-strong) !important;
-    color: white;
+    color: var(--sv-card-bg);
 }
 
 .result.success {
     background-color: var(--sv-success-strong) !important;
-    color: white;
+    color: var(--sv-card-bg);
 }
 
 .interface-container {
-    border: 1px solid #eee;
+    border: 1px solid var(--sv-border);
     margin: 10px 0;
     padding: 15px;
     border-radius: 5px;
@@ -101,7 +101,7 @@ button:hover {
 
 .interface-title {
     font-weight: bold;
-    color: #555;
+    color: var(--sv-text-3);
     margin-bottom: 10px;
 }
 
@@ -126,8 +126,8 @@ button:hover {
 }
 
 .back-button {
-    background-color: #95a5a6;
-    color: white;
+    background-color: var(--sv-neutral-strong);
+    color: var(--sv-card-bg);
     padding: 8px 16px;
     text-decoration: none;
     border-radius: 4px;
@@ -136,7 +136,7 @@ button:hover {
 }
 
 .back-button:hover {
-    background-color: #7f8c8d;
+    background-color: var(--sv-neutral-strong-hover);
 }
 
 .form-group-horizontal {

@@ -1,20 +1,14 @@
 /* ============ 通用模态框（取代浏览器原生 alert/confirm）============ */
 
-:root {
-  --modal-primary-start: #667eea;
-  --modal-primary-end:   #764ba2;
-  --modal-primary-shadow:        rgba(102, 126, 234, 0.4);
-  --modal-primary-shadow-soft:   rgba(102, 126, 234, 0.35);
-  --modal-danger-start:  var(--sv-danger-strong);
-  --modal-danger-end:    var(--sv-danger-strong-hover);
-  --modal-danger-shadow:         rgba(220, 53, 69, 0.4);
-}
+/* 颜色与品牌色全部走 theme.css 的 --sv-* 变量。
+   modal 自己不再写颜色字面量，也不再定义 --modal-* 别名。
+   品牌色切换：body.theme-purple（默认 ADTU） / body.theme-blue（ARSS） */
 
 /* 遮罩 */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 20, 35, 0.55);
+  background: var(--sv-overlay-strong);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   display: flex;
@@ -31,9 +25,9 @@
 
 /* 卡片 */
 .modal-card {
-  background: #ffffff;
+  background: var(--sv-card-bg);
   border-radius: 14px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 60px var(--sv-shadow-2);
   width: 100%;
   max-width: 460px;
   overflow: hidden;
@@ -62,17 +56,17 @@
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  color: #fff;
+  color: var(--sv-card-bg);
   flex-shrink: 0;
-  background: linear-gradient(135deg, var(--modal-primary-start) 0%, var(--modal-primary-end) 100%);
+  background: linear-gradient(135deg, var(--sv-primary-strong) 0%, var(--sv-primary-end) 100%);
 }
 .modal-icon.modal-icon-danger {
-  background: linear-gradient(135deg, var(--modal-danger-start) 0%, var(--modal-danger-end) 100%);
+  background: linear-gradient(135deg, var(--sv-danger-strong) 0%, var(--sv-danger-strong-hover) 100%);
 }
 .modal-title {
   font-size: 1.05rem;
   font-weight: 600;
-  color: #1a202c;
+  color: var(--sv-text-1);
   flex: 1;
   word-break: break-word;
 }
@@ -81,15 +75,15 @@
   background: transparent;
   font-size: 22px;
   line-height: 1;
-  color: #a0aec0;
+  color: var(--sv-text-5);
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 6px;
   transition: background 0.15s, color 0.15s;
 }
 .modal-close:hover {
-  background: #f1f5f9;
-  color: #4a5568;
+  background: var(--sv-card-bg);
+  color: var(--sv-text-3);
 }
 
 /* 正文（保留换行） */
@@ -97,7 +91,7 @@
   padding: 12px 22px 18px 22px;
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #4a5568;
+  color: var(--sv-text-3);
   white-space: pre-line;
   word-break: break-word;
   overflow-y: auto;
@@ -109,8 +103,8 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
+  background: var(--sv-card-bg);
+  border-top: 1px solid var(--sv-border);
 }
 .modal-btn {
   padding: 8px 18px;
@@ -124,7 +118,7 @@
 }
 .modal-btn:focus {
   outline: none;
-  box-shadow: 0 0 0 3px var(--modal-primary-shadow-soft);
+  box-shadow: 0 0 0 3px var(--sv-primary-shadow-soft);
 }
 .modal-btn:active:not(:disabled) {
   transform: translateY(1px);
@@ -134,27 +128,27 @@
   cursor: not-allowed;
 }
 .modal-btn-cancel {
-  background: #ffffff;
-  color: #4a5568;
-  border: 1px solid #cbd5e0;
+  background: var(--sv-card-bg);
+  color: var(--sv-text-3);
+  border: 1px solid var(--sv-border-strong);
 }
 .modal-btn-cancel:hover:not(:disabled) {
-  background: #f1f5f9;
-  color: #1a202c;
+  background: var(--sv-card-bg);
+  color: var(--sv-text-1);
 }
 .modal-btn-confirm {
-  background: linear-gradient(135deg, var(--modal-primary-start) 0%, var(--modal-primary-end) 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--sv-primary-strong) 0%, var(--sv-primary-end) 100%);
+  color: var(--sv-card-bg);
 }
 .modal-btn-confirm:hover:not(:disabled) {
-  box-shadow: 0 4px 12px var(--modal-primary-shadow);
+  box-shadow: 0 4px 12px var(--sv-primary-shadow);
 }
 .modal-btn-danger {
-  background: linear-gradient(135deg, var(--modal-danger-start) 0%, var(--modal-danger-end) 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--sv-danger-strong) 0%, var(--sv-danger-strong-hover) 100%);
+  color: var(--sv-card-bg);
 }
 .modal-btn-danger:hover:not(:disabled) {
-  box-shadow: 0 4px 12px var(--modal-danger-shadow);
+  box-shadow: 0 4px 12px var(--sv-danger-strong-hover);
 }
 
 /* 小屏适配 */
@@ -181,26 +175,14 @@
   margin-top: 12px;
   padding: 8px 12px;
   font-size: 0.95rem;
-  color: #1a202c;
-  background: #fff;
-  border: 1px solid #cbd5e0;
+  color: var(--sv-text-1);
+  background: var(--sv-card-bg);
+  border: 1px solid var(--sv-border-strong);
   border-radius: 6px;
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 .modal-input:focus {
-  border-color: var(--modal-primary-start);
-  box-shadow: 0 0 0 3px var(--modal-primary-shadow-soft);
-}
-
-/* ARSS 主题色覆盖（Bootstrap 蓝） */
-:root {
-  --modal-primary-start:   #007cba;
-  --modal-primary-end:     #005a87;
-  --modal-primary-shadow:        rgba(0, 124, 186, 0.4);
-  --modal-primary-shadow-soft:   rgba(0, 124, 186, 0.35);
-  /* 危险色统一走 theme.css 语义变量，避免这里与 config/interface 的红色各写一套 */
-  --modal-danger-start:    var(--sv-danger-strong);
-  --modal-danger-end:      var(--sv-danger-strong-hover);
-  --modal-danger-shadow:         rgba(220, 53, 69, 0.4);
+  border-color: var(--sv-primary-strong);
+  box-shadow: 0 0 0 3px var(--sv-primary-shadow-soft);
 }

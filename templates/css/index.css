@@ -3,19 +3,19 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: var(--sv-page-bg);
 }
 .container {
     max-width: 800px;
     margin: 100px auto;
     text-align: center;
-    background-color: white;
+    background-color: var(--sv-card-bg);
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px var(--sv-shadow-1);
 }
 h1 {
-    color: #333;
+    color: var(--sv-text-2);
     margin-bottom: 30px;
 }
 .links {
@@ -26,15 +26,15 @@ h1 {
 }
 .link-item {
     padding: 20px;
-    background-color: #3498db;
-    color: white;
+    background-color: var(--sv-btn-strong);
+    color: var(--sv-card-bg);
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s;
     min-width: 150px;
 }
 .link-item:hover {
-    background-color: #2980b9;
+    background-color: var(--sv-btn-strong-hover);
 }
 .link-item h2 {
     margin: 0 0 10px 0;

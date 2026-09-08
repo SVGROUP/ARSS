@@ -11,7 +11,7 @@
     "x86_64::./operate_site/hdkyl.py": "8128f4a192b9d30e7beb1defef1eee01",
     "x86_64::./operate_site/torrentleech.py": "b2d295fc805c0650a1da8350e9e4335e",
     "x86_64::./operate_site/ourbits.py": "23bbf97a1a04f94ce45da41c94422d67",
-    "x86_64::./operate_site/ubits.py": "ada7a520e094bba65daadba3807445e1",
+    "x86_64::./operate_site/ubits.py": "a384f06d2bf22aefffbd29b8185c27de",
     "x86_64::./operate_site/zmpt.py": "31423f17386d6d5fdaf66fd0e0ea35f2",
     "x86_64::./operate_site/filelist.py": "88f455eb90489737fce0729c19402515",
     "x86_64::./operate_site/reelflix.py": "f365e520f45d5ee04a6eb5f8588200ca",
@@ -47,7 +47,7 @@
     "aarch64::./operate_site/hdkyl.py": "8128f4a192b9d30e7beb1defef1eee01",
     "aarch64::./operate_site/torrentleech.py": "b2d295fc805c0650a1da8350e9e4335e",
     "aarch64::./operate_site/ourbits.py": "23bbf97a1a04f94ce45da41c94422d67",
-    "aarch64::./operate_site/ubits.py": "ada7a520e094bba65daadba3807445e1",
+    "aarch64::./operate_site/ubits.py": "a384f06d2bf22aefffbd29b8185c27de",
     "aarch64::./operate_site/zmpt.py": "31423f17386d6d5fdaf66fd0e0ea35f2",
     "aarch64::./operate_site/filelist.py": "88f455eb90489737fce0729c19402515",
     "aarch64::./operate_site/reelflix.py": "f365e520f45d5ee04a6eb5f8588200ca",
@@ -104,7 +104,7 @@
     "aarch64::release/readme_rss.txt": "a1cc0d408588f3a32956644ee5f9ab33",
     "aarch64::release/favicon.ico": "55078cdefc012622fb33347af42b1c0e",
     "aarch64::release/setup_test.sh": "88ea31323fc057525915c3bf7e338063",
-    "aarch64::release/ubits.cpython-313-x86_64-linux-gnu.so": "d9a2210931bb281d4025215b4f814ce7",
+    "aarch64::release/ubits.cpython-313-x86_64-linux-gnu.so": "d65c2618b33ded5ab8153904498ad361",
     "aarch64::release/commit.sh": "23a5d42504dac86c17d858f993140735",
     "aarch64::release/update_no_force.sh": "107460876fc2281aa7aa1dc54632567d",
     "aarch64::release/readme.txt": "a4e609fbc14872b17eca0f7321b054e1",
@@ -121,7 +121,7 @@
     "aarch64::release/index.html": "f017cfebe97998e3c28e8c36bb0ed744",
     "aarch64::release/update_test.sh": "65537701a5c39c0d8c2730d2a4da280f",
     "aarch64::release/config.css": "00e8055165e54419a2fe65ff32b2318d",
-    "aarch64::release/compiled_hashes.json": "e49bd1ca179588fcdb540b140b8aedba",
+    "aarch64::release/compiled_hashes.json": "64824e1245946c68237f43747f34be9d",
     "aarch64::release/config.html": "039a0440cb25eecd3f637538d48d58b0",
     "aarch64::release/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
     "aarch64::release/AGENTS.md": "2c2bf96e6ea7df263fc95c9a0e95002e",
@@ -129,5 +129,5 @@
     "aarch64::release/update.sh": "28cbe969a68cbd0750016d97e60dd1d1",
     "aarch64::release/setup.sh": "08992d492ca09912cccf341e2180f2c4"
   },
-  "last_git_commit": "a7576cd69f431c7f23945356e10d4f8e608e3e1f"
+  "last_git_commit": "271ac88e278a6447b0f692c777ec01b02273bed3"
 }

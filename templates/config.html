@@ -153,6 +153,17 @@
         <!-- 站点综合配置 -->
         <div class="section">
             <div class="section-title">站点综合配置</div>
+            <!-- 批量操作：一键禁用/启用所有站点 -->
+            <div class="form-group">
+                <div class="form-item">
+                    <label>批量操作</label>
+                    <div>
+                        <button type="button" class="btn btn-red" id="disableAllSitesBtn">一键禁用所有站点</button>
+                        <button type="button" class="btn btn-green" id="enableAllSitesBtn" style="margin-left:8px;">一键启用所有站点</button>
+                    </div>
+                    <div class="help-text">批量修改所有站点的"使用此源站"开关，其它字段不动。修改后请点"页面保存配置"提交生效。</div>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="form-item">
                     <label for="site_selector">选择配置站点</label>

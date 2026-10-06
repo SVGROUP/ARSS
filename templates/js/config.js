@@ -399,6 +399,33 @@
       if (r.ok) location.reload();
     }
 
+    // 一键禁用/启用所有站点的 RSS 拉取（只改 rss.is_used，其它字段不动）
+    async function setAllSites(enabled) {
+      const actionText = enabled ? '启用' : '禁用';
+      const siteCount = sites.SITE_LIST.length;
+      const ok = await window.confirmModal({
+        message: `确定要${actionText}所有 ${siteCount} 个站点的 RSS 拉取吗？\n\n此操作只修改各站的"使用此源站"开关，Cookies / RSS 链接 / 体积上下限等其它字段不动。\n点击确定后，还需要点页面顶部的"页面保存配置"提交生效。`,
+        confirmText: actionText,
+        cancelText: '取消',
+        danger: !enabled,
+      });
+      if (!ok) return;
+
+      // 以 state.new 为基线改（保护用户在表单上未保存的其它编辑）
+      const newCfg = JSON.parse(JSON.stringify(state.new));
+      if (!newCfg.rss) newCfg.rss = {};
+      if (!newCfg.rss.is_used) newCfg.rss.is_used = {};
+      sites.SITE_LIST.forEach((s) => { newCfg.rss.is_used[s.value] = enabled; });
+      state.setNew(newCfg);
+
+      // 如果当前正在编辑某个站点，同步刷新表单上"使用此源站"勾选状态
+      if (state.currentSite) {
+        document.getElementById('site_is_used').checked = enabled;
+      }
+
+      void window.alertModal(`已批量${actionText}所有站点（仅页面状态）。\n请点击顶部"页面保存配置"按钮提交使生效。`);
+    }
+
     // 深度合并（form 配置 + 站点配置）
     function mergeDeep(target, source) {
       if (source == null) return target;
@@ -413,7 +440,7 @@
       return target;
     }
 
-    return { load, save, backup, restore, syncCookieCloud };
+    return { load, save, backup, restore, syncCookieCloud, setAllSites };
   })();
 
   // ============================================================
@@ -435,6 +462,8 @@
     document.getElementById('backupBtn').addEventListener('click', actions.backup);
     document.getElementById('restoreBtn').addEventListener('click', actions.restore);
     document.getElementById('forceSync').addEventListener('click', actions.syncCookieCloud);
+    document.getElementById('disableAllSitesBtn').addEventListener('click', () => actions.setAllSites(false));
+    document.getElementById('enableAllSitesBtn').addEventListener('click', () => actions.setAllSites(true));
 
     // 返回首页按钮
     const backBtn = document.querySelector('.back-button');

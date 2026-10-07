@@ -84,7 +84,7 @@
     "x86_64::templates/css/shared/modal.css": "5c13f9cd376812d0b23314ab50675042",
     "x86_64::templates/js/interface.js": "0e17c5bec4695d5bfda9971a7f23e0ce",
     "x86_64::templates/js/index.js": "19f5e8396bd739584f9b59b838b08703",
-    "x86_64::templates/js/config.js": "489e28a09b87a60b9be3b34253f37ce2",
+    "x86_64::templates/js/config.js": "23c538c1c9a95fdbf736c145ce2cd4c8",
     "x86_64::templates/js/shared/modal.js": "79a7c446fa07c5ddeeff236cf7c62a52",
     "aarch64::templates/config.html": "637be9027f530be84247c9a0a658e1df",
     "aarch64::templates/favicon.ico": "55078cdefc012622fb33347af42b1c0e",
@@ -96,10 +96,10 @@
     "aarch64::templates/css/shared/modal.css": "5c13f9cd376812d0b23314ab50675042",
     "aarch64::templates/js/interface.js": "0e17c5bec4695d5bfda9971a7f23e0ce",
     "aarch64::templates/js/index.js": "19f5e8396bd739584f9b59b838b08703",
-    "aarch64::templates/js/config.js": "489e28a09b87a60b9be3b34253f37ce2",
+    "aarch64::templates/js/config.js": "23c538c1c9a95fdbf736c145ce2cd4c8",
     "aarch64::templates/js/shared/modal.js": "79a7c446fa07c5ddeeff236cf7c62a52",
     "x86_64::templates/css/shared/theme.css": "d49e36dfeaf924fc4d9e49afba7a3d13",
     "aarch64::templates/css/shared/theme.css": "d49e36dfeaf924fc4d9e49afba7a3d13"
   },
-  "last_git_commit": "7c9844f84a130c9d38cae64c591f862c193986be"
+  "last_git_commit": "e8f39b425ca2d61340677fe0d15c4d473d66a578"
 }

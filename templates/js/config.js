@@ -353,9 +353,11 @@
       // 重新读一次表单（确保拿到最新值，不依赖实时 bind 的中间态）
       const formCfg = fields.read();
       const siteCfg = sites.readCurrent();
-      // 以 state.old 为基线 deep-clone，这样 19 个站点的原有字段都保留，
-      // 避免 sites.readCurrent() 只输出当前选中站点，导致其他站点在 diff 中误报
-      const newCfg = JSON.parse(JSON.stringify(state.old));
+      // 以 state.new 为基线 deep-clone：state.new 已通过 fields.bind() 实时同步顶层字段编辑，
+      // 且批量操作（如一键禁用所有站点）也写在 state.new 上；
+      // 再叠加 fields.read() / sites.readCurrent() 的即时读取，捕获尚未失焦的编辑。
+      // （不能用 state.old 作基线，否则会丢失批量操作写入 state.new 的改动）
+      const newCfg = JSON.parse(JSON.stringify(state.new));
       mergeDeep(newCfg, formCfg);
       mergeDeep(newCfg, siteCfg);
       const changes = diff.compute(state.old, newCfg);

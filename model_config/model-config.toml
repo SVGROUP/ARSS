@@ -18,7 +18,7 @@ password = ""                                       #端对端加密密码
 
 [rss]                                               #本模块修改不用重启
 free_check = true                                   #RSS时是否检测种子免费状态，默认true进行检测。
-time_check = 5                                      #RSS时检测种子发布时间，N天前的不下载，默认5天。
+time_check = 3                                      #RSS时检测种子发布时间，N天前的不下载。
 hr_check = true                                     #RSS时是否检测种子的HR标志，有标志的不进行下载，默认true进行检测。
 quick_scan = false                                  #RSS时快速轮循所有种子，建议执行完一次就改回false。
 

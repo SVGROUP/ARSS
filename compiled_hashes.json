@@ -31,7 +31,7 @@
     "x86_64::./util/svlog.py": "ea14138aee8cf7c0e7b12cb7118bbb7a",
     "x86_64::./util/tools.py": "a1c5e9a2ad08a32d1d0d4a97f6727624",
     "x86_64::model_config/readme_rss.txt": "a1cc0d408588f3a32956644ee5f9ab33",
-    "x86_64::model_config/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
+    "x86_64::model_config/model-config-rss.toml": "d1b91205a0f24aba62dd035d7c9cb8df",
     "x86_64::release/run.sh": "9822771f6c92770690ccb55324e5f57d",
     "x86_64::release/gitignore": "6b8bf2319984ac8f69282c862bf4c477",
     "x86_64::release/run.py": "7eeb69f695157b8831b8d3c58b6e2e3a",
@@ -67,7 +67,7 @@
     "aarch64::./util/svlog.py": "ea14138aee8cf7c0e7b12cb7118bbb7a",
     "aarch64::./util/tools.py": "a1c5e9a2ad08a32d1d0d4a97f6727624",
     "aarch64::model_config/readme_rss.txt": "a1cc0d408588f3a32956644ee5f9ab33",
-    "aarch64::model_config/model-config-rss.toml": "180415bcbd088f67c90f75b91de8382b",
+    "aarch64::model_config/model-config-rss.toml": "d1b91205a0f24aba62dd035d7c9cb8df",
     "aarch64::release/run.sh": "9822771f6c92770690ccb55324e5f57d",
     "aarch64::release/gitignore": "6b8bf2319984ac8f69282c862bf4c477",
     "aarch64::release/run.py": "7eeb69f695157b8831b8d3c58b6e2e3a",
@@ -101,5 +101,5 @@
     "x86_64::templates/css/shared/theme.css": "d49e36dfeaf924fc4d9e49afba7a3d13",
     "aarch64::templates/css/shared/theme.css": "d49e36dfeaf924fc4d9e49afba7a3d13"
   },
-  "last_git_commit": "e8f39b425ca2d61340677fe0d15c4d473d66a578"
+  "last_git_commit": "57faa1556729d4e98a31ae7433d603c332f33eb0"
 }
